@@ -1,8 +1,16 @@
 document.addEventListener('DOMContentLoaded', () => {
+
+    // 建立 loading-overlay div
+    const loading_overlay = new_node('div', {
+        className: 'loading-overlay' 
+    });
+
     // 建立 loading div
     const loading = new_node('div', {
         className: 'loading' 
     });
+
+    loading_overlay.appendChild(loading);
     
     // 建立 5 個 container div 
     for (let i = 0; i < 5; i++) {
@@ -16,13 +24,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     // 加到 body 上
-    document.body.appendChild(loading);
+    document.body.appendChild(loading_overlay);
 });
 
 window.addEventListener('load', () => {
     // 移除加載元素
-    get('.loading')[0].remove();
+    get('.loading-overlay')[0].remove();
     // setTimeout(() => {
     //     // 加載完成的操作
-    //   }, 5000); // 延遲5秒
+    //   }, 3000); // 延遲5秒
 });

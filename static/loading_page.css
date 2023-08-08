@@ -18,12 +18,26 @@ body {
   align-items: center;
 }
 
+.loading-overlay {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(171, 171, 171, 0.523);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
 .loading {
   width: var(--loading-size);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: relative;
+  position: fixed;
+  z-index: 999;
 }
 
 .container {
