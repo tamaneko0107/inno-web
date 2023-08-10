@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOME</title>
+    {% for file in css_files %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/' + file) }}">
+    {% endfor %}
+    {% for file in js_files %}
+        <script src="{{ url_for('static', filename='js/' + file) }}" ></script>
+    {% endfor %}
+</head>
+<body>
+    <header>
+    </header>
+</body>
+</html>

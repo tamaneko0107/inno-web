@@ -1,14 +1,12 @@
-.button-anime {
+.button-frame {
     --border: 5px;    /* the border width */
     --slant: 0.7em;   /* control the slanted corners */
     --color: #37E8FC; /* the color */
 
     font-size: 35px;
     text-align: center;
-    user-select: none;
     padding: 0.4em 1.2em;
     border: none;
-    cursor: pointer;
     font-weight: bold;
     color: var(--color);
     background: 
@@ -23,6 +21,9 @@
         polygon(0 0, calc(100% - var(--slant)) 0, 100% var(--slant),
                 100% 100%, var(--slant) 100%,0 calc(100% - var(--slant))
             );
+}
+
+.button-anime {
     transition: color var(--t,0.3s), background-size 0.3s;
 }
 .button-anime:focus-visible {
