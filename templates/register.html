@@ -1,22 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HOME</title>
-    {% for file in css_files %}
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/' + file) }}">
-    {% endfor %}
-    {% for file in js_files %}
-        <script src="{{ url_for('static', filename='js/' + file) }}" ></script>
-    {% endfor %}
-</head>
-<body>
-    <div class="button-frame role-selection">
-        <input type="text" class="button-frame" placeholder="username">
-        <input type="text" class="button-frame" placeholder="password">
-        <input type="text" class="button-frame" placeholder="confirm password">
-        <button type="button" class="button-frame button-anime medium-button">rigister</button>
+{% extends "index.html" %}
+{% block content %}
+<div>
+    <div class="button-frame role-open role-selection">
+        <a href="/"><button class="button-frame button-anime return-button"><i class="fa-solid fa-arrow-left-long"></i></button></a>
+        <span>教師註冊</span>
+        <div class="input-frame">
+            <div>
+                <input type="text" class="button-frame login-frame" placeholder="username">
+                <input type="text" class="button-frame login-frame" placeholder="password">
+                <input type="text" class="button-frame login-frame" placeholder="confirm password">
+            </div>
+            <div>
+                <div class="register-button-frame">
+                    <button type="button" class="button-frame button-anime">register</button>     
+                </div>
+            </div>
+        </div>
     </div>
-</body>
-</html>
+</div>
+{% endblock %}

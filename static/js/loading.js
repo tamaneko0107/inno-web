@@ -32,5 +32,5 @@ window.addEventListener('load', () => {
     get('.loading-overlay')[0].remove();
     // setTimeout(() => {
     //     // 加載完成的操作
-    //   }, 3000); // 延遲5秒
+    //   }, 500); // 延遲0.5秒
 });

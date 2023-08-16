@@ -36,5 +36,9 @@ def student():
     JS_FILES = os.listdir(os.path.join(STATIC_FLODER, 'js'))
     return render_template('student.html', css_files=CSS_FILES, js_files=JS_FILES)
 
+@app.route('/register')
+def index_register():
+    return render_template('register.html')
+
 if __name__ == '__main__':
     app.run()

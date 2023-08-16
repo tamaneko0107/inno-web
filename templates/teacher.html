@@ -1,37 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HOME</title>
-    {% for file in css_files %}
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/' + file) }}">
-    {% endfor %}
-    {% for file in js_files %}
-        <script src="{{ url_for('static', filename='js/' + file) }}" ></script>
-    {% endfor %}
-</head>
-<body>
-    <header>
-        <div class="header">
-            <div class="logo">
-                <img src="{{ url_for('static', filename='img/logo.png') }}" alt="logo">
-            </div>
-            <div class="menu">
-                <ul>
-                    <li><a href="{{ url_for('teacher') }}">Home</a></li>
-                    <li><a href="{{ url_for('teacher') }}">About</a></li>
-                    <li><a href="{{ url_for('teacher') }}">Contact</a></li>
-                    <li><a href="{{ url_for('teacher') }}">Login</a></li>
-                </ul>
-            </div>
+{% extends 'index.html' %}
+{% block content %}
+<header>
+    <input type="checkbox" class="toggler">
+    <div class="hamburger"><div></div></div>
+    <div class="menu">
+        <div>
+            <ul>
+                <li><a href='#'>Home</a></li>
+                <li><a href='#'>About</a></li>
+                <li><a href='#'>Services</a></li>
+                <li><a href='#'>Contact</a></li>
+            </ul>
         </div>
-        <div class="banner">
-            <div class="banner-text">
-                <h1>WELCOME TO THE TEACHER'S PAGE</h1>
-                <p>Here you can view your students' progress and add new students to your class.</p>
-            </div>
-        </div>
-    </header>
-</body>
-</html>
+    </div>
+</header>
+
+{% endblock %}

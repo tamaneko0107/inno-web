@@ -14,25 +14,13 @@
 </head>
 <body>
     {% block content %}
-    <div class="role-selection">
-        <div id="teacher-button" class="button-frame role-open">
-            <button class="button-frame button-anime return-button"><i class="fa-solid fa-arrow-left-long"></i></button>
-            <span>老師</span>
-            <div class="input-frame">
-                <div>
-                    <input type="text" class="button-frame login-frame" placeholder="username">
-                    <input type="text" class="button-frame login-frame" placeholder="password">
-                </div>
-                <div>
-                    <a class="forget-password" href="/">forget password?</a>
-                    <div>
-                        <button class="button-frame button-anime medium-button">register</button>
-                        <button class="button-frame button-anime medium-button">login</button>
-                    </div>
-                </div>
+    <div>
+        <div class="role-selection">
+            <div id="teacher-button" class="button-frame button-anime">
+                <span>老師</span>
             </div>
+            <div id="student-button" class="button-frame button-anime"><span>學生</span></div>
         </div>
-        <div id="student-button" class="button-frame button-anime"><span>學生</span></div>
     </div>
     {% endblock %}
 </body>
