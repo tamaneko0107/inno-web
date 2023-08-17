@@ -1,14 +1,23 @@
 {% extends "index.html" %}
 {% block content %}
-<div>
+<div class="center">
     <div class="button-frame role-open role-selection">
         <a href="/"><button class="button-frame button-anime return-button"><i class="fa-solid fa-arrow-left-long"></i></button></a>
         <span>教師註冊</span>
         <div class="input-frame">
             <div>
-                <input type="text" class="button-frame login-frame" placeholder="username">
-                <input type="text" class="button-frame login-frame" placeholder="password">
-                <input type="text" class="button-frame login-frame" placeholder="confirm password">
+                <div class="input-box">
+                    <input type="text" class="button-frame login-frame">
+                    <label>username</label>
+                </div>
+                <div class="input-box">
+                    <input type="text" class="button-frame login-frame">
+                    <label>password</label>
+                </div>
+                <div class="input-box">
+                    <input type="text" class="button-frame login-frame">
+                    <label>confirm password</label>
+                </div>
             </div>
             <div>
                 <div class="register-button-frame">

@@ -18,8 +18,14 @@
                 className: 'input-frame',
                 innerHTML: `
                 <div>
-                    <input type="text" class="button-frame login-frame" placeholder="username">
-                    <input type="password" class="button-frame login-frame" placeholder="password">
+                    <div class="input-box">
+                        <input type="password" class="button-frame login-frame">
+                        <label>username</label>
+                    </div>
+                    <div class="input-box">
+                        <input type="text" class="button-frame login-frame">
+                        <label>password</label>
+                    </div>
                 </div>
                 <div>
                     <a class="forget-password" href="/">forget password?</a>

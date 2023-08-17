@@ -1,4 +1,4 @@
-body > div {
+.center {
     height: 100%;
     width: 100%;
     display: flex;
@@ -56,8 +56,10 @@ body > div {
 }
 
 .login-frame {
-    width: 80%;
-    height: 10%;
+    /* width: 80%;
+    height: 10%; */
+    height: 50%;
+    width: 100%;
     background-color: transparent;
 }
 
@@ -72,4 +74,24 @@ body > div {
 
 .forget-password:visited {
     color: none;
+}
+
+.login-frame:focus+label {
+    transform: translateY(-50px);
+    font-size: 30px;
+}
+
+.input-box > label {
+    position: absolute;
+    width: 100%;
+    transition: all 0.4s ease;
+    z-index: -1;
+}
+
+.input-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
 }

@@ -3,6 +3,7 @@
     --slant: 0.7em;   /* control the slanted corners */
     --color: #37E8FC; /* the color */
 
+    user-select: none;
     font-size: 35px;
     text-align: center;
     padding: 0.4em 1.2em;
@@ -25,6 +26,7 @@
 
 .button-anime {
     transition: color var(--t,0.3s), background-size 0.3s;
+    cursor: pointer;
 }
 .button-anime:focus-visible {
     outline-offset: calc(-1*var(--border));
