@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous"referrerpolicy="no-referrer"/>
+    </head>
+    <style>
+        @charset "UTF-8";
+        body {
+          background: #222;
+          color: #aaa;
+        }
+        
+        .container {
+          position: relative;
+          display: block;
+          width: 600px;
+        }
+        
+        details {
+          position: relative;
+          width: auto;
+          height: auto;
+          overflow: hidden;
+          max-height: 2.5em !important;
+          transition: all 0.1s ease;
+        }
+        details ::-webkit-details-marker {
+          display: none;
+        }
+        details > summary {
+          position: relative;
+          margin-top: 0.25em;
+          color: #99e;
+          padding: 0.1em 0.5em 0.2em;
+          background: #444;
+        }
+        details > summary:before {
+          content: "\f07c"; /* Unicode 編碼，代表 Folder 開啟圖標 */
+          font-family: "Font Awesome 5 Free"; /* 請確保正確引入了 Font Awesome 字體 */
+          color: #eee;
+          font-size: 0.5em;
+          margin-right: 0.5em;
+        }
+        details[open] > summary {
+          background: rgba(12, 144, 237, 0.4);
+          color: #eee;
+        }
+        details[open] > summary:before {
+          content: "\f07b"; /* Unicode 編碼，代表 Folder 關閉圖標 */
+          font-family: "Font Awesome 5 Free"; /* 請確保正確引入了 Font Awesome 字體 */
+          color: #ccc;
+        }
+        
+        .folder {
+          margin: 0 0 0.5em 0.86em;
+          padding: 0.5em 0em 0.5em 1.5em;
+          border-left: 0.1em #ccc dotted;
+          border-bottom: 0.1em #ccc dotted;
+        }
+        .folder p {
+          margin: 0;
+        }
+        
+        details[open] {
+          height: auto;
+          max-height: 99em !important;
+          transition: all 1.2s ease;
+        }
+        
+        details:not([open]) .folder {
+          height: 0px !important;
+        }/*# sourceMappingURL=test.css.map */
+  </style>
+  <body>
+    <div class="container">
+        <details open>
+            <summary>myproject</summary>
+            <div class="folder">
+                <p>app.py</p>
+                <p>package.json</p>
+            <details open>
+                <summary>static</summary>
+                <div class="folder">
+                    <details>
+                        <summary>css</summary>
+                        <div class="folder">
+                            <p>index.css</p>
+                            <p>template.css</p>
+                        </div>
+                    </details>
+                    <details open>
+                        <summary>js</summary>
+                        <div class="folder">
+                            <p>index.js</p>
+                            <p>jquery-min.js</p>
+                        </div>
+                    </details>
+                    <details>
+                        <summary>img</summary>
+                        <div class="folder">
+                            <p>banner.png</p>
+                            <p>foo.png</p>
+                        </div>
+                    </details>
+                </div>
+            </details>
+            <details open>
+                <summary>templates</summary>
+                <div class="folder">
+                    <p>index.html</p>
+                    <p>template.html</p>
+                </div>
+            </details>
+            </div>
+        </details>
+    </div>
+    
+  </body>
+</html>
