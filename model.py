@@ -8,13 +8,13 @@ class User(db.Model):
     id = db.Column('id', db.Integer, primary_key = True)
     username = db.Column(db.String(100),unique=True)
     _password = db.Column(db.String(50))
-    mail = db.Column(db.String(200),unique=True)
+    # mail = db.Column(db.String(200),unique=True)
     courses = db.relationship('Course',backref='user')
 
-    def __init__(self, username, password, mail):
+    def __init__(self, username, password):
         self.username = username
         self._password = generate_password_hash(password)
-        self.mail = mail
+        # self.mail = mail
 
     @property
     def password(self):

@@ -76,7 +76,8 @@
     color: none;
 }
 
-.login-frame:focus+label {
+.login-frame:focus+label,
+.login-frame:valid+label {
     transform: translateY(-50px);
     font-size: 30px;
 }
@@ -86,6 +87,7 @@
     width: 100%;
     transition: all 0.4s ease;
     z-index: -1;
+    
 }
 
 .input-box {
