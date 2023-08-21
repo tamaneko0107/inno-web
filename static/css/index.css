@@ -76,7 +76,8 @@
     color: none;
 }
 
-.login-frame:focus+label {
+.login-frame:focus+label,
+.login-frame:valid+label {
     transform: translateY(-50px);
     font-size: 30px;
 }
@@ -94,4 +95,8 @@
     align-items: center;
     justify-content: center;
     width: 90%;
+}
+
+div {
+    border: #ff2c2c 2px solid;
 }

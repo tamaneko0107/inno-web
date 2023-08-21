@@ -1,3 +1,6 @@
+{% block preload %}
+
+{% endblock %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,6 +14,9 @@
     {% for file in js_files %}
         <script src="{{ url_for('static', filename='js/' + file) }}" ></script>
     {% endfor %}
+    {% block link %}
+    
+    {% endblock %}
 </head>
 <body>
     {% block content %}

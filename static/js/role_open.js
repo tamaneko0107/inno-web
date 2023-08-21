@@ -19,11 +19,11 @@
                 innerHTML: `
                 <div>
                     <div class="input-box">
-                        <input type="password" class="button-frame login-frame">
+                        <input type="text" class="button-frame login-frame" required>
                         <label>username</label>
                     </div>
                     <div class="input-box">
-                        <input type="text" class="button-frame login-frame">
+                        <input type="password" class="button-frame login-frame" required>
                         <label>password</label>
                     </div>
                 </div>
