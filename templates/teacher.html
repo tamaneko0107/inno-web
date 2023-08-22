@@ -3,7 +3,7 @@
     <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 {% endblock %}
 {% block link %}
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 {% endblock %}
 
 {% block content %}
@@ -26,41 +26,103 @@
                 <li><a href="#step-4">Step.4</a></li>
                 <li><a href="#step-5">Step.5</a></li>
             </ul>
-            <ul id="issues">
-                <li id="step-1">
-                    <div class="data">
-                        <h1>Step.1</h1>
-                        <p>Upload</p>
-                    </div>
-                </li>
-                <li id="step-2">
-                    <h1>Step.2</h1>
-                    <p>choice voice and image and language</p>
-                </li>
-                <li id="step-3">
-                    <h1>Step.3</h1>
-                    <p>outline selcet</p>
-                </li>
-                <li id="step-4">
-                    <h1>Step.4</h1>
-                    <p>text Adjustment</p>
-                </li>
-                <li id="step-5">
-                    <h1>Step.5</h1>
-                    <p>video genertate</p>
-                </li>
-            </ul>
+            <form method="POST">
+                <ul id="issues">
+                    <li id="step-1">
+                        <div class="data">
+                            <p>選擇檔案類別及檔案</p>
+                            <select class="sel_box" title="foo" id="setting1" onchange="toggleElements('#setting1')">
+                                <option value=1>選擇檔案</option>
+                                <option value=2>PDF連結</option>
+                            </select>
+                            <div class="content_box">
+                                <label for="file_input" class="custom_file_input">
+                                    <span>Choose file</span>
+                                    <input accept=".pdf,.mp3,.ppt,.pptx" type="file" id="file_input" style="display: none;">
+                                </label>
+                            </div>
+                            <div class="content_box url_input_box" style="display: none;">
+                                <div class="url_box">
+                                    <input type="text" id="url_input" placeholder="Enter URL">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li id="step-2">
+                        <div class="data">
+                            <p>選擇影片人物</p>
+                            <select name="face_box">
+                                {% for face in faces %}
+                                    <option value="{{ face }}">{{ face }}</option>
+                                {% endfor %}
+                            </select>
+                            
+                        </div>
+                    </li>
+                    <li id="step-3">
+                        <div class="data">
+                            <p>選擇語言</p>
+                            <select name="language_box">
+                                {% for lang in langs %}
+                                    <option value="{{ lang }}">{{ lang }}</option>
+                                {% endfor %}
+                                
+                            </select>
+                            <p>選擇語音</p>
+                            <select name="voice_box">
+                                {% for voice in voices %}
+                                    <option value="{{ voice }}">{{ voice }}</option>
+                                {% endfor %}
+                               
+                            </select>
+                        </div>
+                    </li>
+                    <li id="step-4">
+                        <div class="data">
+                            <p>選擇生成類別(大綱/詳細講稿)</p>
+                            <div class="middle">
+                                <label>
+                                    <input type="radio" name="radio" checked/>
+                                    <div class="outline radio-box">
+                                        <span>大綱</span>
+                                        <p>適合適合適合適合適合適合適合適合適合適合適合適合適合適合適合適合適合適合適合</p>
+                                    </div>
+                                </label>
+                                <label>
+                                    <input type="radio" name="radio"/>
+                                    <div class="speech radio-box">
+                                        <span>詳細講稿</span>
+                                        <p>適合適合適合適合適合適合適合適合適合適合適合適合適合適合適合適合適合適合適合</p>
+                                    </div>
+                                </label>
+                            </div>
+                            <button type="button" class="button-frame button-anime" onclick="createStep()">上傳</button>
+                            <!-- <div class="data">
+                                <input type="submit" value="上傳">
+                            </div> -->
+                        </div>
+                    </li>
+                    <li id="step-5">
+                        <div class="data">
+                            <textarea name="" id="" cols="100" rows="30"></textarea>
+                        </div>
+                    </li>
+                    <li id="step-6">
+                        <div class="data">
+                            <textarea name="" id="" cols="100" rows="30"></textarea>
+                        </div>
+                    </li>
+                </ul>
+            </form>
             <div class="prev-next">
                 <div class="prev">
                     <div id="grad_left"></div>
-                    <a href="#" id="prev">-</a>
+                    <a href="#" id="prev"><i class="fa-solid fa-arrow-left"></i></a>
                 </div>
                 <div class="next">
                     <div id="grad_right"></div>
-                    <a href="#" id="next">+</a>
+                    <a href="#" id="next"><i class="fas fa-solid fa-arrow-right"></i></a>
                 </div>
-                <!-- <a href="#"><button class=" next"><i class="fa-solid fa-arrow-right"></i></button></a>
-                <a href="#"><button class=" prev"><i class="fa-solid fa-arrow-left"></i></button></a> -->
             </div>
         </div>
     </div>
@@ -87,9 +149,9 @@
 
 <script>
     $(function(){
-    			$().timelinr({
-    				arrowKeys: 'true'
-    			})
-    		});
+        $().timelinr({
+            arrowKeys: 'true'
+        })
+    });
   </script>
 {% endblock %}

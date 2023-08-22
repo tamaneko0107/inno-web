@@ -1,6 +1,6 @@
 .toggler{
   /* ALWAYS KEEPING THE TOGGLER OR THE CHECKBOX ON TOP OF EVERYTHING :  */
-    z-index:5;
+    z-index:12;
     height: 50px;
     width: 50px;
     position: absolute;
@@ -12,7 +12,7 @@
 
 .hamburger{
     position: absolute;
-    z-index: 4;
+    z-index: 11;
     top: 0;
     left: 0;
     height: 40px;
@@ -87,7 +87,8 @@ TOP AT -10PX ABOVE THE MIDDLE ONE AND BOTTOM ONE IS 10PX BELOW THE MIDDLE: */
     -ms-transform: translateX(-200%);
     transform: translateX(-200%);
     background-color: #091d387d;
-    z-index: 2;
+    z-index: 10;
+    position: relative;
   
   /* APPLYING TRANSITION TO THE MENU :  */
   
