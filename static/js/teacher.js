@@ -1,6 +1,9 @@
-// document.addEventListener('DOMContentLoaded', function () {
-//     $('#dates li').eq(0).find('a').trigger('click');
-// });
+document.addEventListener('DOMContentLoaded', function () {
+    // $('#dates li').eq(0).find('a').trigger('click');
+    get('.mask')[0].addEventListener('click', function () {
+        get('.toggler:checked')[0].click();
+    });
+});
 
 function toggleElements(sel_id) {
     var sel = get(sel_id)[0]

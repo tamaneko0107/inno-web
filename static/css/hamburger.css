@@ -15,8 +15,8 @@
     z-index: 11;
     top: 0;
     left: 0;
-    height: 40px;
-    width: 40px;
+    height: 60px;
+    width: 60px;
     padding: 0.6rem;
   
   /* FOR DISPLAYING EVERY ELEMENT IN THE CENTER : */
@@ -130,16 +130,24 @@ TOP AT -10PX ABOVE THE MIDDLE ONE AND BOTTOM ONE IS 10PX BELOW THE MIDDLE: */
     border: rgba(117, 207, 94, 0.684) 5px dashed;
 }
 
-.menu > .non-data > span {
-    position: relative;
-    bottom: 1em;
+.menu > .non-data > p:last-child {
+    position: absolute;
+    bottom: 0;
     color: rgba(58, 172, 221, 0.684);
 }
 
-.menu > .non-data::before {
+/* .menu > .non-data::before {
     content: '+';
     position: relative;
     font-size: 8em;
+    text-align: center;
+    color: rgba(53, 91, 202, 0.61);
+} */
+
+.non-data > p:first-child {
+    font-size: 8em;
+    position: relative;
+    top: -10%;
     color: rgba(53, 91, 202, 0.61);
 }
 
