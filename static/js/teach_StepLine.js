@@ -110,8 +110,7 @@ jQuery.fn.timelinr = function(options){
 		});
 
 		$(settings.nextButton).bind('click', function(event){
-			console.log("1");
-			$(settings.datesDiv+' a.selected').addClass('enable');
+			// $(settings.datesDiv+' a.selected').addClass('enable');
 			event.preventDefault();
 			// bugixed from 0.9.54: now the dates gets centered when there's too much dates.
 			var currentIndex = $(settings.issuesDiv).find('li.'+settings.issuesSelectedClass).index();
@@ -167,7 +166,7 @@ jQuery.fn.timelinr = function(options){
 					$(settings.nextButton+','+settings.prevButton).fadeIn('slow');
 				}	
 			}
-			$(settings.datesDiv+' a.selected').addClass('enable');
+			// $(settings.datesDiv+' a.selected').addClass('enable');
 		});
 
 		$(settings.prevButton).click(function(event){

@@ -1,3 +1,29 @@
+@keyframes typing{
+  from { width: 0; }
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  width: 100%;
+  height: 10%;
+
+}
+
+.AIGC-title {
+  width: 300px;
+  font-size: 30px;
+  color: white;
+  margin: 0;
+  overflow: hidden; /*はみ出た要素を非表示に*/
+  white-space: nowrap; /*1行に*/
+  animation: typing 1s steps(19);
+  font-weight: bolder;
+  text-shadow: 8px 6px 2px  rgb(0, 0, 0);
+}
+
 .create-course {
     position: fixed;
     height: 100%;
@@ -76,6 +102,16 @@
     outline: none;
 }
 
+/* 第一個與.sel_box同層的.content_box元素 */
+.sel_box ~ .content_box {
+    display: none;
+}
+
+.sel_box + .content_box {
+    display: block;
+}
+
+
 .content_box {
     border: solid 5px;
     border-color: rgba(47, 109, 235, 0.781);
@@ -92,16 +128,23 @@
 }
 
 .custom_file_input {
-    position: absolute;
-    top: 0;
-    left: 0;
+    /* position: absolute; */
+    /* top: 0;
+    left: 0; */
     width: 100%;
     height: 100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    text-align: center;
 }
+.custom_file_input span {
+  margin-top: 15px;
+  font-size: 30px;
+  color: rgb(197, 190, 190);
 
+}
 .url_input_box {
     height: 10%;
     display: flex;
@@ -195,4 +238,43 @@
 }
 .middle .speech span:before {
   content: "✔️";
+}
+.fa-upload {
+  font-size: 100px;
+  color: rgb(197, 190, 190);
+}
+
+.textbox {
+  width: 100%;
+  height: 70%;
+  padding: 8px 10px;
+  border: 1px solid #82aed4;
+  border-radius: 25px;
+  color: #352b2b;
+  font-size: 1em;
+  line-height: 1.5;
+  resize: both;
+}
+
+.textbox::placeholder {
+  color: #999;
+}
+
+.textbox:focus {
+  outline: none;
+  border: 5px solid #007e90;
+}
+
+.send {
+  margin-top: 5px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+
+.content_box img {
+  width: 100%;
+  height: 100%;
 }

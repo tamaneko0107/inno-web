@@ -27,7 +27,9 @@ def teacher():
     STATIC_FLODER = os.path.join(app.root_path, 'static')
     CSS_FILES = os.listdir(os.path.join(STATIC_FLODER, 'css'))
     JS_FILES = os.listdir(os.path.join(STATIC_FLODER, 'js'))
-    return render_template('teacher.html', css_files=CSS_FILES, js_files=JS_FILES)
+    IMAGE_FILES = [i[:-4] for i in os.listdir(os.path.join(STATIC_FLODER, 'test_img')) ]
+    
+    return render_template('teacher.html', css_files=CSS_FILES, js_files=JS_FILES,faces=IMAGE_FILES)
 
 @app.route('/student')
 def student():
@@ -40,5 +42,12 @@ def student():
 def index_register():
     return render_template('register.html')
 
+@app.route('/api', methods=['POST'])
+def api():
+    print(request.files)
+    return dict(
+        status="sad,",
+        content=dict(message='amogus', keypoint_content='sus')
+    )
 if __name__ == '__main__':
     app.run()

@@ -7,7 +7,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HOME</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     {% for file in css_files %}
         <link rel="stylesheet" href="{{ url_for('static', filename='css/' + file) }}">
@@ -24,9 +26,9 @@
     <div class="center">
         <div class="role-selection">
             <div id="teacher-button" class="button-frame button-anime">
-                <span>老師</span>
+                <span>Teacher</span>
             </div>
-            <div id="student-button" class="button-frame button-anime"><span>學生</span></div>
+            <div id="student-button" class="button-frame button-anime"><span>Student</span></div>
         </div>
     </div>
     {% endblock %}

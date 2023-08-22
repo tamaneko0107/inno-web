@@ -39,13 +39,13 @@ function new_node(tagname, properties = {}) {
  * @param {string} key
 */
 // url format: /api/...
-async function fetchAPI(url, method, data={}, key=undefined){
+async function fetchAPI(url, method='POST', data={}, key=undefined){
     return await fetch(url, {
         method: method,
         headers: {
-            'Content-Type': 'multipart/form-data',
+            'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data)
+        body: data
     }).then((response) => {
         if (!(response.ok || response.status === 400)) {
             throw new Error(response.statusText);

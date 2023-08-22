@@ -53,6 +53,7 @@ h2 {
   overflow: hidden;
   padding-left: 0;
   position: inherit;
+  margin-bottom: 0;
   z-index: 1;
 }
 
@@ -63,7 +64,7 @@ h2 {
   height: 50px;
   font-size: 24px;
   text-align: center;
-  pointer-events: none;
+  /* pointer-events: none; */
 } 
 
 #dates a {
@@ -136,11 +137,14 @@ h2 {
 }
 
 #issues li p {
-  font-size: 14px;
-  margin-right: 70px;
-  margin-left: 70px;
+  font-size: 24px;
+  /* margin-right: 70px;
+  margin-left: 70px; */
+  margin-top: 0;
+  margin-bottom: 15px;
   font-weight: normal;
   line-height: 22px;
+  color: rgb(125, 247, 202);
   /* text-shadow: #000 1px 1px 2px; */
 }
 
@@ -203,8 +207,8 @@ h2 {
   justify-content: flex-end;
 }
 
-.enable {
+/* .enable {
   pointer-events: all;
-}
+} */
 
 
