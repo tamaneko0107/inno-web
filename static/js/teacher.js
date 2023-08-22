@@ -14,21 +14,21 @@ function toggleElements(sel_id) {
     }
 }
 
-function createStep(step_num) {
+function createStep(num) {
     let step = get('#dates')[0];
     let step_data = get('#issues')[0];
-
-    // 尋找有沒有 step 元素
-    let old_step = step.get('li a[href="#step-6"]')[0];
+    
+    // 尋找有沒有 step.6 的元素
+    let old_step = step.get('li')[num];
     if (!old_step) {
         // 沒有的話，新增一個新的元素
         new_step = new_node('li', {
-            innerHTML: `<a href="#step-${step_num}">Step.${step_num}</a>`
+            innerHTML: `<a href="#step-6">Step.6</a>`
         });
         step.appendChild(new_step);
     }
 
-    let old_step_data = step_data.get(`#step-${step}`)[0];
+    let old_step_data = step_data.get('#step-6')[0];
     
     $().timelinr({
         arrowKeys: 'true' 
