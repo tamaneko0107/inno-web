@@ -39,12 +39,14 @@ function new_node(tagname, properties = {}) {
  * @param {string} key
 */
 // url format: /api/...
-async function fetchAPI(url, content_type, method = 'POST', data = {}, key = undefined) {
+async function fetchAPI(url, method = 'POST', data = {}, key = undefined, content_type = undefined) {
+    let headers = new Headers();
+    if (content_type) {
+        headers.append('Content-Type', content_type);
+    }
     return await fetch(url, {
         method: method,
-        headers: {
-            'Content-Type': content_type,
-        },
+        headers: headers,
         body: data
     }).then((response) => {
         if (!(response.ok || response.status === 400)) {
@@ -76,8 +78,4 @@ async function fetchAPI(url, content_type, method = 'POST', data = {}, key = und
     }).catch((error) => {
         alert(`ERROR RECEIVED: \n${error}`);
     });
-}
-
-function encryptacc(acc, pw) {
-    return CryptoJS.AES.encrypt(acc, pw).toString();
 }
