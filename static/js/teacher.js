@@ -1,43 +1,55 @@
 document.addEventListener('DOMContentLoaded', function () {
     // $('#dates li').eq(0).find('a').trigger('click');
-    get('.mask')[0].addEventListener('click', function () {
-        get('.toggler:checked')[0].click();
-    });
+    if (get('.mask')[0]) {
+        get('.mask')[0].addEventListener('click', function () {
+            get('.toggler:checked')[0].click();
+        });
+    }
 
-    fname = get('.custom_file_input span')[0];
-    get('#file_input')[0].addEventListener('change', function (event) {
-        const file_name = event.target.files[0].name;
-        fname.textContent = file_name;
-    });
+    if (get('#file_input')[0]) {
+        fname = get('.custom_file_input span')[0];
+        get('#file_input')[0].addEventListener('change', function (event) {
+            const file_name = event.target.files[0].name;
+            fname.textContent = file_name;
+        });
+    }
 
-    
-    // const select = document.querySelector('select[name="face_box"]');
-    // const imgFrame = document.querySelector('.face_img_frame');
+    if (get('.non-data')[0]) {
+        get('.non-data')[0].addEventListener('click', function () {
+            get('.data-frame')[0].style.display = 'none';
+            get('.create-course')[0].style.display = '';
+        });
+    }
 
-    // select.addEventListener('change', function() {
-    //     const selectedValue = this.value;
-    //     imgFrame.innerHTML = `<img src="../static/test_img/${selectedValue}" alt="${selectedValue}">`;
-    // });
 });
 
-function toggleElements(sel_id) {
+function toggleElements(sel_id, limit = []) {
     var sel = get(sel_id)[0]
     var sel_val = sel.options[sel.selectedIndex].value
-    var option = get(sel_id + '~.content_box')
-    for (var i = 0; i < option.length; i++) {
-        ((i+1).toString() == sel_val) ?
-        option[i].style.display = 'block'
-        :
-        option[i].style.display = 'none';
+    if (limit.length != 0) {
+        for (const [i, option] of get(sel_id + '~.content_box').entries()) {
+            option.style.display = 'none';
+        }
+        if (limit.includes(sel_val)) {
+            option.style.display = 'block';
+        }
+    }
+    else {
+        for (const [i, option] of get(sel_id + '~.content_box').entries()) {
+            (sel.options[i].value == sel_val) ?
+                option.style.display = 'block'
+                :
+                option.style.display = 'none';
+        }
     }
 }
 
 function createStep(num) {
     let step = get('#dates')[0];
     let step_data = get('#issues')[0];
-    
+
     // 尋找有沒有相應 step 元素
-    let old_step = step.get('li')[num-1];
+    let old_step = step.get('li')[num - 1];
     // console.log(old_step);
     if (!old_step) {
         // 沒有的話，新增一個新的元素
@@ -47,7 +59,7 @@ function createStep(num) {
         step.appendChild(new_step);
     }
 
-    let old_step_data = step_data.get('#issues > li')[num-1];
+    let old_step_data = step_data.get('#issues > li')[num - 1];
     // console.log(old_step_data);
     if (!old_step_data) {
         new_step_data = new_node('li', {
@@ -68,9 +80,9 @@ function createStep(num) {
         old_step_data.get('.data > textarea')[0].value = '';
     }
 
-    
+
     $().timelinr({
-        arrowKeys: 'true' 
+        arrowKeys: 'true'
     });
     const newStepLink = $('#dates li').last().find('a');
 
@@ -79,18 +91,26 @@ function createStep(num) {
 }
 
 
-async function upload(step_num) {
-    createStep(step_num+1);
-    data = new FormData(get("#dataForm")[0]);
-    let text = fetch('/api', {
+async function uploadKeypoint(step_num) {
+    createStep(step_num + 1);
+    data = new FormData(get("form")[0]);
+
+    // let keypointContent = await fetchAPI('/api/upload/keypoint', 'multipart/form-data', 'POST', data, 'keypoint_content');
+    // console.log(keypointContent);
+
+    // data.append('tset', get('#file_input')[0]);
+    fetch('/test', {
         method: 'POST',
+        // headers: {
+        //     'Content-Type': 'application/json',
+        // },
         body: data
-    }).then((response) => {
-        return (response.text());
-    }).then((e) => {
-        get('.textbox')[0].value = e;
-    });
-    console.log(text);
+        }).then((response) => {
+            return response.text();
+        }).then((text) => {
+            console.log(text);
+        });
+
     // file = get('#file_input')[0].files[0]
     // result = {f: file}
     // console.log(result);
@@ -115,3 +135,40 @@ async function upload(step_num) {
 // }
 
 
+function register() {
+    const teacher_name = get('#teacher-register-username')[0].value;
+    const teacher_password = get('#teacher-register-password')[0].value;
+    const teacher_password_confirm = get('#teacher-register-password-confirm')[0].value;
+    if (teacher_password != teacher_password_confirm) {
+        alert('密碼不一致');
+        return;
+    }
+    let body = JSON.stringify({ "username": teacher_name, "password": teacher_password });
+    fetchAPI('/api/auth/register', 'application/json', 'POST', body, 'url').then((url) => {
+        alert('register success, redirect to login page');
+        window.location.replace(url);
+    }).catch((err) => {
+        window.location.href = url;
+    }).catch((err) => {
+        alert('register failed:')
+    });
+
+
+}
+
+function login() {
+    let teacher_name = get('#index-login-username')[0].value;
+    let teacher_password = get('#index-login-password')[0].value;
+    let body = JSON.stringify({ "username": teacher_name, "password": teacher_password });
+    fetchAPI('/api/auth/login', 'application/json', 'POST', body, 'url').then((url) => {
+        console.log(url);
+        if (!url || url == undefined) throw new Error('');
+        alert('login success');
+        window.location.href = url;
+    }).catch((err) => {
+        alert('login failed');
+        const course_name = get('#course-name')[0].value;
+        let body = JSON.stringify({ "subject_name": course_name, "author": "test" });
+        fetchAPI('/api/create/subject', 'application/json', 'POST', body);
+    });
+}

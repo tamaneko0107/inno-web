@@ -1,4 +1,5 @@
 @charset "UTF-8";
+
 :root {
   --duration: 1.5s;
   --loading-size: 250px;
@@ -18,14 +19,14 @@ body {
 }
 
 .return-button {
-    font-size: 20px;
-    position: absolute;
-    left: 1vw;
+  font-size: 20px;
+  position: absolute;
+  left: 1vw;
 }
 
 .medium-button {
-    font-size: 20px;
-    width: 150px;
+  font-size: 20px;
+  width: 150px;
 }
 
 input {
@@ -33,7 +34,7 @@ input {
 }
 
 input:focus {
-  outline: none;
+  lectureNote: none;
 }
 
 button {

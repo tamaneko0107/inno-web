@@ -65,7 +65,7 @@ h2 {
   font-size: 24px;
   text-align: center;
   /* pointer-events: none; */
-} 
+}
 
 #dates a {
   line-height: 38px;
@@ -104,15 +104,16 @@ h2 {
   transform: scale(1.1, 1.1);
 }
 
-#issues li img {
+/* 目前沒用到的動畫 */
+/* #issues li img {
   float: left;
   margin: 10px 30px 10px 50px;
   background: transparent;
   -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF)";
-  /* IE 8 */
+
   
   filter: progid: DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF, endColorstr=#00FFFFFF);
-  /* IE 6 & 7 */
+
   
   zoom: 1;
   -webkit-transition: all 2s ease-in-out;
@@ -125,7 +126,7 @@ h2 {
   -o-transform: scale(0.7, 0.7);
   -ms-transform: scale(0.7, 0.7);
   transform: scale(0.7, 0.7);
-}
+} */
 
 #issues li h1 {
   color: #ffcc00;
@@ -163,19 +164,22 @@ h2 {
   background-repeat: no-repeat;
   overflow: hidden;
   z-index: 1;
-  transition: transform 0.2s ease-in-out; /* 添加位移效果的过渡 */
+  transition: transform 0.2s ease-in-out;
+  /* 添加位移效果的过渡 */
 }
 
 #next:hover,
 #prev:hover {
   background-position: 0 -76px;
-  transform: translateY(1px); /* 鼠标悬停时的位移效果 */
+  transform: translateY(1px);
+  /* 鼠标悬停时的位移效果 */
 }
 
 #next:active,
 #prev:active {
   background-position: 0 -76px;
-  transform: translateY(10px); /* 鼠标悬停时的位移效果 */
+  transform: translateY(10px);
+  /* 鼠标悬停时的位移效果 */
 }
 
 #next.disabled,
@@ -193,7 +197,7 @@ h2 {
 }
 
 .prev,
-.next{
+.next {
   width: 100px;
   display: flex;
   align-items: center;
@@ -210,5 +214,3 @@ h2 {
 /* .enable {
   pointer-events: all;
 } */
-
-

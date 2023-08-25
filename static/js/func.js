@@ -39,33 +39,31 @@ function new_node(tagname, properties = {}) {
  * @param {string} key
 */
 // url format: /api/...
-async function fetchAPI(url, method='POST', data={}, key=undefined){
+async function fetchAPI(url, content_type, method = 'POST', data = {}, key = undefined) {
     return await fetch(url, {
         method: method,
         headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': content_type,
         },
         body: data
     }).then((response) => {
         if (!(response.ok || response.status === 400)) {
-            throw new Error(response.statusText);
+            console.log(response);
+            alert(`Unexpected response status: ${response.status}`);
         }
         return response.json();
     }).then((data) => {
-        if (data['status']!="ok") throw new Error(data['content']['message']);
+        if (data['status'] != "ok") throw new Error(data['content']['message']);
         if (key) {
-            if (key instanceof Array) {
+            if (Array.isArray(key)) {
                 let res = {};
                 for (let k of key) {
                     res[k] = data['content'][k];
                 }
                 return res;
             }
-            else if (key instanceof String) {
+            else if (typeof (key) === 'string') {
                 return data['content'][key];
-            }
-            else if (key === undefined) {
-                return data['status'];
             }
             else {
                 throw new Error("key must be a string or an array of strings or undefined");
@@ -76,6 +74,10 @@ async function fetchAPI(url, method='POST', data={}, key=undefined){
             return data;
         }
     }).catch((error) => {
-        alert(error);
+        alert(`ERROR RECEIVED: \n${error}`);
     });
+}
+
+function encryptacc(acc, pw) {
+    return CryptoJS.AES.encrypt(acc, pw).toString();
 }

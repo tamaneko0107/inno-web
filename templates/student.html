@@ -10,9 +10,13 @@
     {% for file in js_files %}
         <script src="{{ url_for('static', filename='js/' + file) }}" ></script>
     {% endfor %}
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
 </head>
 <body>
     <div class="fish" id="fish"></div>
     <div class="fish" id="fish2"></div>
+    {% block content %}{% endblock %} 
+    
 </body>
 </html>

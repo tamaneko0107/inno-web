@@ -1,27 +1,33 @@
 {% extends "index.html" %}
+{% block preload %}
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    
+{% endblock %}
 {% block content %}
+
 <div class="center">
     <div class="button-frame role-open role-selection">
         <a href="/"><button class="button-frame button-anime return-button"><i class="fa-solid fa-arrow-left-long"></i></button></a>
         <span>Teacher Register</span>
         <div class="input-frame">
+            
             <div>
                 <div class="input-box">
-                    <input type="text" class="button-frame login-frame" required>
+                    <input type="text" class="button-frame login-frame" id='teacher-register-username'required>
                     <label>username</label>
                 </div>
                 <div class="input-box">
-                    <input type="password" class="button-frame login-frame" required>
+                    <input type="password" class="button-frame login-frame" id="teacher-register-password" required>
                     <label>password</label>
                 </div>
                 <div class="input-box">
-                    <input type="password" class="button-frame login-frame" required>
+                    <input type="password" class="button-frame login-frame" id="teacher-register-password-confirm" required>
                     <label>confirm password</label>
                 </div>
             </div>
             <div>
                 <div class="register-button-frame">
-                    <button type="button" class="button-frame button-anime">register</button>     
+                    <button type="button" class="button-frame button-anime" id="teacher-register-submit" onclick="register()">register</button>     
                 </div>
             </div>
         </div>

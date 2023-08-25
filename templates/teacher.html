@@ -35,15 +35,18 @@
             </ul>
             <form method="POST" name="uploaddata" id="dataForm">
                 <!-- <area value="subject_naem"> -->
+                <input name="chapter_name" value="test_chapter_name" style="display:none">
+                <input name="subject_name" value="test_subject_name" style="display:none">
+                <input name="author" value="author" style="display:none">
                 <ul id="issues">
                     <li id="step-1">
                         <div class="data">
                             <p>Select file type and file</p>
-                            <select class="sel_box" title="foo" id="setting1" onchange="toggleElements('#setting1')">
-                                <option value='1'>Choose File</option>
-                                <option value='2'>PDF URL</option>
+                            <select class="sel_box" title="upload_filetype" id="setting1" onchange="toggleElements('#setting1')">
+                                <option value='1'>Upload file</option>
+                                <option value='2'>Donwload from URL</option>
                             </select>
-                            <div class="content_box">
+                            <div class="content_box drop-area">
                                 <label for="file_input" class="custom_file_input">
                                     <i class="fas fa-upload"></i>
                                     <span>Choose file</span>
@@ -60,50 +63,51 @@
                     </li>
                     <li id="step-2">
                         <div class="data">
-                            <p>select movie character</p>
-                            <select name="face_box" class="sel_box" id="setting2" onchange="toggleElements('#setting2')">
+                            <p>Select instructor image</p>
+                            <select name="face_box" title="face_sel" class="sel_box" id="setting2" onchange="toggleElements('#setting2', limit = [1])">
                                 {% for face in faces %}
                                     <option value="{{ face }}">{{ face }}</option>
                                 {% endfor %}
                             </select>
-                            {% for face_count in faces%}
-                            <div class="face_img_frame content_box">
-                                <img class="face_img" src="../static/test_img/{{ face_count }}.jpg">
+                            <div class="face_img_frame content_box" style="display: flex;">
+                                {% for face in faces%}
+                                <img title="face_img" class="face_img" src="../static/test_img/{{ face }}.jpg">
+                                {% endfor %}
                             </div>
-                            {% endfor %}
-
                         </div>
                     </li>
                     <li id="step-3">
                         <div class="data">
                             <p>Select language/voice</p>
                             <select name="language_box">
-                                {% for lang in langs %}
-                                    <option value="{{ lang }}">{{ lang }}</option>
+                                {% for voice in voices %}
+                                    <option value="{{ voice }}">{{ voice }}</option>
                                 {% endfor %}
-                                
                             </select>
+                            <div class="voice-play-frame">
+                                
+                            </div>
                         </div>
                     </li>
                     <li id="step-4">
                         <div class="data">
-                            <p>Select Generation Category (Outline/Draft)</p>
+                            <p>Select Generation Category (Abstract/lectureNote)</p>
                             <div class="middle">
                                 <label>
                                     <input type="radio" name="radio" checked/>
-                                    <div class="outline radio-box">
-                                        <span>Outline</span>
+                                    <div class="lectureNote radio-box">
+                                        <span>Abstract</span>
                                     </div>
                                 </label>
                                 <label>
                                     <input type="radio" name="radio"/>
                                     <div class="speech radio-box">
-                                        <span>Draft</span>
+                                        <span>lectureNote</span>
 
                                     </div>
                                 </label>
                             </div>
-                            <input type="button" class="button-frame button-anime" onclick="upload(4)" value="upload">
+                            <input type="button" class="button-frame button-anime" onclick="uploadKeypoint(4)" value="upload">
                             <!-- <div class="data">
                                 <input type="submit" value="上傳">
                             </div> -->
@@ -134,25 +138,26 @@
         </div>
     </div>
 </div>
-<!-- <div class="create-course">
+
+<div class="create-course" style="display:none">
     <div class="button-frame role-open role-selection">
-        <a href="/teacher"><button class="button-frame button-anime return-button"><i class="fa-solid fa-arrow-left-long"></i></button></a>
+        <a href="/teacher"><button title="create_course" class="button-frame button-anime return-button"><i class="fa-solid fa-arrow-left-long"></i></button></a>
         <span>創建課程</span>
         <div class="input-frame">
             <div>
                 <div class="input-box">
-                    <input type="text" class="button-frame login-frame">
+                    <input id="course-name" type="text" class="button-frame login-frame" name="course-name" title="course_name">
                     <label>course name</label>
                 </div>
             </div>
             <div>
                 <div class="register-button-frame">
-                    <button type="button" class="button-frame button-anime">create</button>     
+                    <button type="button" class="button-frame button-anime" id="create_course_btn" onclick="create_subject()">create</button>     
                 </div>
             </div>
         </div>
     </div>
-</div> -->
+</div>
 
 <script>
     $(function(){

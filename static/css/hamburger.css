@@ -1,6 +1,6 @@
-.toggler{
-  /* ALWAYS KEEPING THE TOGGLER OR THE CHECKBOX ON TOP OF EVERYTHING :  */
-    z-index:12;
+.toggler {
+    /* ALWAYS KEEPING THE TOGGLER OR THE CHECKBOX ON TOP OF EVERYTHING :  */
+    z-index: 12;
     height: 50px;
     width: 50px;
     position: absolute;
@@ -10,7 +10,7 @@
     opacity: 0;
 }
 
-.hamburger{
+.hamburger {
     position: absolute;
     z-index: 11;
     top: 0;
@@ -18,9 +18,9 @@
     height: 60px;
     width: 60px;
     padding: 0.6rem;
-  
-  /* FOR DISPLAYING EVERY ELEMENT IN THE CENTER : */
-  
+
+    /* FOR DISPLAYING EVERY ELEMENT IN THE CENTER : */
+
     display: flex;
     align-items: center;
     justify-content: center;
@@ -28,41 +28,41 @@
 
 /* CREATING THE MIDDLE LINE OF THE HAMBURGER : */
 
-.hamburger > div{
+.hamburger>div {
     position: relative;
     top: 0;
     left: 0;
     background: white;
     height: 2px;
     width: 60%;
-    transition: all  0.4s ease;
+    transition: all 0.4s ease;
 }
 
 /* CREATING THE TOP AND BOTTOM LINES : 
-TOP AT -10PX ABOVE THE MIDDLE ONE AND BOTTOM ONE IS 10PX BELOW THE MIDDLE: */
+  TOP AT -10PX ABOVE THE MIDDLE ONE AND BOTTOM ONE IS 10PX BELOW THE MIDDLE: */
 
-.hamburger > div::before,
-.hamburger > div::after{
+.hamburger>div::before,
+.hamburger>div::after {
     content: '';
     position: absolute;
     top: -10px;
     background: white;
     width: 100%;
     height: 2px;
-    transition: all  0.4s ease;
+    transition: all 0.4s ease;
 }
 
-.hamburger > div::after{
+.hamburger>div::after {
     top: 10px;
 }
 
 /* IF THE TOGGLER IS IN ITS CHECKED STATE, THEN SETTING THE BACKGROUND OF THE MIDDLE LAYER TO COMPLETE BLACK AND OPAQUE :  */
 
-.toggler:checked + .hamburger > div{
-    background: rgba(0,0,0,0);
+.toggler:checked+.hamburger>div {
+    background: rgba(0, 0, 0, 0);
 }
 
-.toggler:checked + .hamburger > div::before{
+.toggler:checked+.hamburger>div::before {
     top: 0;
     transform: rotate(45deg);
     background: white;
@@ -70,7 +70,7 @@ TOP AT -10PX ABOVE THE MIDDLE ONE AND BOTTOM ONE IS 10PX BELOW THE MIDDLE: */
 
 /* AND ROTATING THE TOP AND BOTTOM LINES :  */
 
-.toggler:checked + .hamburger > div::after{
+.toggler:checked+.hamburger>div::after {
     top: 0;
     transform: rotate(135deg);
     background: white;
@@ -79,7 +79,7 @@ TOP AT -10PX ABOVE THE MIDDLE ONE AND BOTTOM ONE IS 10PX BELOW THE MIDDLE: */
 
 /* MAIN MENU WITH THE WHITE BACKGROUND AND THE TEXT :  */
 
-.menu{
+.menu {
     background: transparent;
     width: 0%;
     height: 100vh;
@@ -89,15 +89,15 @@ TOP AT -10PX ABOVE THE MIDDLE ONE AND BOTTOM ONE IS 10PX BELOW THE MIDDLE: */
     background-color: #091d387d;
     z-index: 10;
     position: relative;
-  
-  /* APPLYING TRANSITION TO THE MENU :  */
-  
+
+    /* APPLYING TRANSITION TO THE MENU :  */
+
     transition: all 0.4s ease;
 }
 
 /* IF THE TOGGLER IS CHECKED, THEN INCREASE THE WIDTH OF THE MENU TO 30% , CREATING A SMOOTH EFFECT :  */
 
-.toggler:checked ~ .menu{
+.toggler:checked~.menu {
     width: 30%;
     -webkit-transform: translateX(0);
     -ms-transform: translateX(0);
@@ -106,7 +106,7 @@ TOP AT -10PX ABOVE THE MIDDLE ONE AND BOTTOM ONE IS 10PX BELOW THE MIDDLE: */
 
 /* STYLING THE LIST :  */
 
-.menu > .non-data {
+.menu>.non-data {
     position: absolute;
     color: white;
     visibility: hidden;
@@ -130,35 +130,35 @@ TOP AT -10PX ABOVE THE MIDDLE ONE AND BOTTOM ONE IS 10PX BELOW THE MIDDLE: */
     border: rgba(117, 207, 94, 0.684) 5px dashed;
 }
 
-.menu > .non-data > p:last-child {
+.menu>.non-data>p:last-child {
     position: absolute;
     bottom: 0;
     color: rgba(58, 172, 221, 0.684);
 }
 
 /* .menu > .non-data::before {
-    content: '+';
-    position: relative;
-    font-size: 8em;
-    text-align: center;
-    color: rgba(53, 91, 202, 0.61);
-} */
+      content: '+';
+      position: relative;
+      font-size: 8em;
+      text-align: center;
+      color: rgba(53, 91, 202, 0.61);
+  } */
 
-.non-data > p:first-child {
+.non-data>p:first-child {
     font-size: 8em;
     position: relative;
     top: -10%;
     color: rgba(53, 91, 202, 0.61);
 }
 
-.toggler:checked ~ .menu > div {
+.toggler:checked~.menu>div {
     transition: visibility 0.4s ease;
     transition-delay: 0.1s;
     visibility: visible;
 }
 
 .bg {
-    background: -webkit-gradient(linear,right top,left top,from(rgba(0,23,54,0)),to(#001736));
+    background: -webkit-gradient(linear, right top, left top, from(rgba(0, 23, 54, 0)), to(#001736));
     position: fixed;
     width: 100%;
     height: 100%;
@@ -167,6 +167,6 @@ TOP AT -10PX ABOVE THE MIDDLE ONE AND BOTTOM ONE IS 10PX BELOW THE MIDDLE: */
     transition: opacity .3s;
 }
 
-.toggler:checked ~ .bg {
+.toggler:checked~.bg {
     opacity: 1;
 }
