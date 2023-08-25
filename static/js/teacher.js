@@ -6,11 +6,14 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    if (get('#file_input')[0]) {
-        fname = get('.custom_file_input span')[0];
-        get('#file_input')[0].addEventListener('change', function (event) {
-            const file_name = event.target.files[0].name;
-            fname.textContent = file_name;
+    let fileInputs = get('.file_input');
+    let fileNames = get('.custom_file_input .file-name');
+    if (fileInputs) {
+        fileInputs.forEach((fileInput, index) => {
+            fileInput.addEventListener('change', function (event) {
+                const file_name = event.target.files[0].name;
+                fileNames[index].textContent = file_name;
+            });
         });
     }
 
@@ -20,19 +23,49 @@ document.addEventListener('DOMContentLoaded', function () {
             get('.create-course')[0].style.display = '';
         });
     }
+    
+    var dropArea = get('.drop-area');
+    if (dropArea) {
+        dropArea.forEach((dropArea) => {
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropArea.addEventListener(eventName, preventDefaults, false);
+            });
+            dropArea.addEventListener('drop', handleDrop, false);
+        });
+    }
 
 });
+
+function preventDefaults(e) {
+    e.stopPropagation();
+    e.preventDefault();
+}
+
+function handleDrop(e) {
+    preventDefaults(e);
+    let files = e.dataTransfer.files;
+    let file_input = e.target.querySelector('.file_input');
+    let acceptedTypes = file_input.accept.split(',');
+    acceptedTypes = acceptedTypes.map(type => type.replace('.', ''));
+    if (!Array.prototype.every.call(files, file => acceptedTypes.includes(file.name.split('.').pop().toLowerCase()))) {
+        alert('Some files are not accepted');
+        return;
+    }
+    file_input.files = files;
+    file_input.dispatchEvent(new Event('change'));
+}
 
 function toggleElements(sel_id, limit = []) {
     var sel = get(sel_id)[0]
     var sel_val = sel.options[sel.selectedIndex].value
     if (limit.length != 0) {
-        for (const [i, option] of get(sel_id + '~.content_box').entries()) {
+        for (option of get(sel_id + '~.content_box')) {
             option.style.display = 'none';
         }
-        if (limit.includes(sel_val)) {
-            option.style.display = 'block';
-        }
+        (limit.includes(sel_val)) ?
+            get(sel_id + '~.content_box')[sel_val].style.display = 'block'
+            :
+            get(sel_id + '~.content_box')[limit.length-1].style.display = 'block';
     }
     else {
         for (const [i, option] of get(sel_id + '~.content_box').entries()) {
@@ -42,6 +75,11 @@ function toggleElements(sel_id, limit = []) {
                 option.style.display = 'none';
         }
     }
+}
+
+function face_select(sel_id, limit = []) {
+    toggleElements(sel_id, limit);
+    get('.face_img')[0].click();
 }
 
 function createStep(num) {

@@ -132,7 +132,8 @@
 }
 
 .custom_file_input {
-  /* position: absolute; */
+  /* position: absolute;
+  z-index: -1; */
   /* top: 0;
     left: 0; */
   width: 100%;
@@ -148,7 +149,7 @@
   margin-top: 15px;
   font-size: 30px;
   color: rgb(197, 190, 190);
-
+  z-index: -1;
 }
 
 .url_input_box {
@@ -175,6 +176,10 @@
   background-color: transparent;
   color: rgb(17, 222, 245);
   /* caret-color: red; */
+}
+
+.url_box>input:focus {
+  outline: none;
 }
 
 /* form > ul {
@@ -255,7 +260,12 @@
   content: "✔️";
 }
 
-.fa-upload {
+.fa {
+  z-index: -1;
+}
+
+.fa-upload,
+.fa-image {
   font-size: 100px;
   color: rgb(197, 190, 190);
 }
@@ -303,16 +313,31 @@
   align-items: center;
   overflow: auto;
   width: 80%;
+  border: none;
 }
 
 .face_img {
-  border: 5px solid #007d90;
+  border: 5px solid #007d9000;
   border-radius: 15rem;
   width: 100px;
   height: 100px;
   margin: 10px;
+  cursor: pointer;
+  user-select: none;
 }
 
-.face_img:hover {
+/* .face_img:hover {
   border: 5px solid #7802ff;
+} */
+
+/* .face_img:focus {
+  border: 5px solid #ff0202;
+} */
+
+.face_img_frame input[type=radio] {
+  display: none;
+}
+
+.face_img_frame input[type=radio]:checked+.face_img {
+  border: 5px solid #ff0202;
 }

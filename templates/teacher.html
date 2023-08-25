@@ -48,10 +48,10 @@
                             </select>
                             <div class="content_box drop-area">
                                 <label for="file_input" class="custom_file_input">
-                                    <i class="fas fa-upload"></i>
-                                    <span>Choose file</span>
+                                    <i class="fas fa-upload fa"></i>
+                                    <span class="file-name">Choose file</span>
                                     <span>( pdf  , ppt , pptx )</span>
-                                    <input accept=".pdf,.ppt,.pptx" type="file" id="file_input" name="uploadfile" style="display: none;">
+                                    <input accept=".pdf,.ppt,.pptx" type="file" id="file_input" class="file_input" name="uploadfile" style="display: none;">
                                 </label>
                             </div>
                             <div class="content_box url_input_box">
@@ -64,14 +64,24 @@
                     <li id="step-2">
                         <div class="data">
                             <p>Select instructor image</p>
-                            <select name="face_box" title="face_sel" class="sel_box" id="setting2" onchange="toggleElements('#setting2', limit = [1])">
-                                {% for face in faces %}
-                                    <option value="{{ face }}">{{ face }}</option>
-                                {% endfor %}
+                            <select name="face_box" title="face_sel" class="sel_box" id="setting2" onchange="face_select('#setting2')">
+                                <option value='0'>Upload file</option>
+                                <option value='1'>Select character</option>
                             </select>
-                            <div class="face_img_frame content_box" style="display: flex;">
+                            <div class="content_box drop-area">
+                                <label for="face_input" class="custom_file_input">
+                                    <i class="fa-solid fa-image fa"></i>
+                                    <span class="file-name">Upload face</span>
+                                    <span>( jpg , jpeg , png )</span>
+                                    <input accept=".jpg,.jpeg,.png" type="file" id="face_input" class="file_input" name="uploadface" style="display: none;">
+                                </label>
+                            </div>
+                            <div class="face_img_frame content_box">
                                 {% for face in faces%}
-                                <img title="face_img" class="face_img" src="../static/test_img/{{ face }}.jpg">
+                                <label>
+                                    <input type="radio" name="face">
+                                    <img title="face_img" class="face_img" src="../static/test_img/{{ face }}.jpg" tabindex="0">
+                                </label>
                                 {% endfor %}
                             </div>
                         </div>

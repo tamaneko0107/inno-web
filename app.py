@@ -6,7 +6,7 @@ from werkzeug.datastructures import FileStorage
 
 
 app = Flask(__name__, static_folder='static')
-api = Api(app, version='1.0', title='Face Recognition API', prefix='/api', doc='/docs')
+# api = Api(app, version='1.0', title='Face Recognition API', prefix='/api', doc='/docs')
 app.config.from_object(CONFIG)
 # STATIC_FLODER = os.path.join(app.root_path, 'static')
 # CSS_FILES = os.listdir(os.path.join(STATIC_FLODER, 'css'))
@@ -31,6 +31,7 @@ def teacher():
     STATIC_FLODER = os.path.join(app.root_path, 'static')
     CSS_FILES = os.listdir(os.path.join(STATIC_FLODER, 'css'))
     JS_FILES = os.listdir(os.path.join(STATIC_FLODER, 'js'))
+    # html_files = os.listdir(os.path.join('templates'))
     IMAGE_FILES = [i[:-4] for i in os.listdir(os.path.join(STATIC_FLODER, 'test_img')) ]
     
     return render_template('teacher.html', css_files=CSS_FILES, js_files=JS_FILES,faces=IMAGE_FILES)
@@ -68,31 +69,13 @@ upload_parser.add_argument('face_box', type=str, required=True)
 #     help="abstract: generate keypoint as abstract, lectureNote: generate keypoint as lectureNote",
 # )
 
-@api.route('/test')
-class Api(Resource):
-    # @api.expect(api.model('test', {
-    #     'data':fields.String(description='test')
-    # }))
-    @api.expect(upload_parser)
-    def post(self):
-        # print('fsa')
-        # print(api.payload)
-        print(request.files)
-        parser = upload_parser.parse_args()
-        print(parser)
-    
-        # if parser.get('uploadfile', None) is not None:
-        #     print(parser['uploadfile'].filename)
-        #     parser['uploadfile'].save(os.path.join(app.root_path, 'static', 'test_img', parser['uploadfile'].filename))
-        #     return {
-        #     'status':"ok",
-        #     'content':{'message':'amogus', 'keypoint_content':'sus'}
-        # }
-        # else:
-        #     return {
-        #     'status':"error",
-        #     'content':{'message':'amogus', 'keypoint_content':'sus'}
-        # }
+# @api.route('/test')
+# class Api(Resource):
+#     @api.expect(upload_parser)
+#     def post(self):
+#         print(request.files)
+#         parser = upload_parser.parse_args()
+#         print(parser)
 
 # @app.route('/api', methods=['POST'])
 # def api():
