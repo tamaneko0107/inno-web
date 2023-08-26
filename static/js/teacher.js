@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
             get('.create-course')[0].style.display = '';
         });
     }
-    
+
     var dropArea = get('.drop-area');
     if (dropArea) {
         dropArea.forEach((dropArea) => {
@@ -65,7 +65,7 @@ function toggleElements(sel_id, limit = []) {
         (limit.includes(sel_val)) ?
             get(sel_id + '~.content_box')[sel_val].style.display = 'block'
             :
-            get(sel_id + '~.content_box')[limit.length-1].style.display = 'block';
+            get(sel_id + '~.content_box')[limit.length - 1].style.display = 'block';
     }
     else {
         for (const [i, option] of get(sel_id + '~.content_box').entries()) {
@@ -133,45 +133,10 @@ async function uploadKeypoint(step_num) {
     createStep(step_num + 1);
     data = new FormData(get("form")[0]);
 
-    // let keypointContent = await fetchAPI('/api/upload/keypoint', 'multipart/form-data', 'POST', data, 'keypoint_content');
-    // console.log(keypointContent);
-
-    // data.append('tset', get('#file_input')[0]);
-    fetch('/test', {
-        method: 'POST',
-        // headers: {
-        //     'Content-Type': 'application/json',
-        // },
-        body: data
-        }).then((response) => {
-            return response.text();
-        }).then((text) => {
-            console.log(text);
-        });
-
-    // file = get('#file_input')[0].files[0]
-    // result = {f: file}
-    // console.log(result);
-    // await fetch('/api', {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify(result)
-    // }).then((response) => {
-    //     console.log(response);
-    // });
-    // var data = new FormData(get("#uploaddata")[0]);
-    // if (step_num == 4) {
-    //     document.uploaddata.submit();
-    // }
+    fetchAPI('/api/upload/keypoint', 'POST', new FormData(get('#dataForm')[0]), 'keypoint_content')
+        .then((result) => { get('.data > textarea')[0].value = result })
+        .catch((error) => { console.log(error) });
 }
-
-// function upload(step_num) {
-//     event.preventDefault()
-//     document.uploaddata.submit();
-// }
-
 
 function register() {
     const teacher_name = get('#teacher-register-username')[0].value;
@@ -182,31 +147,31 @@ function register() {
         return;
     }
     let body = JSON.stringify({ "username": teacher_name, "password": teacher_password });
-    fetchAPI('/api/auth/register', 'application/json', 'POST', body, 'url').then((url) => {
+    fetchAPI('/api/auth/register', 'POST', body, 'url', 'application/json').then((url) => {
+        console.log(url);
+        if (!url) { alert('register failed'); return; }
         alert('register success, redirect to login page');
-        window.location.replace(url);
-    }).catch((err) => {
         window.location.href = url;
-    }).catch((err) => {
-        alert('register failed:')
     });
-
-
 }
 
 function login() {
-    let teacher_name = get('#index-login-username')[0].value;
-    let teacher_password = get('#index-login-password')[0].value;
-    let body = JSON.stringify({ "username": teacher_name, "password": teacher_password });
-    fetchAPI('/api/auth/login', 'application/json', 'POST', body, 'url').then((url) => {
-        console.log(url);
-        if (!url || url == undefined) throw new Error('');
-        alert('login success');
-        window.location.href = url;
-    }).catch((err) => {
-        alert('login failed');
-        const course_name = get('#course-name')[0].value;
-        let body = JSON.stringify({ "subject_name": course_name, "author": "test" });
-        fetchAPI('/api/create/subject', 'application/json', 'POST', body);
-    });
+    let username = get('#index-login-username')[0].value;
+    let password = get('#index-login-password')[0].value;
+    let body = JSON.stringify({ "username": username, "password": password });
+    fetchAPI('/api/auth/login', 'POST', body, 'url', 'application/json')
+        .then((url) => {
+            console.log(url);
+            if (!url) { alert('login failed'); return; }
+            alert('login success');
+            window.location.href = url;
+        });
+}
+
+function create_subject() {
+    const course_name = get('#course-name')[0].value;
+    // get author from cookie
+    const author = document.cookie.split('; ').find(row => row.startsWith('username')).split('=')[1];
+    let body = JSON.stringify({ "subject_name": course_name, "author": author });
+    fetchAPI('/api/create/subject', 'POST', body, undefined, 'application/json');
 }
