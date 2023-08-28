@@ -37,6 +37,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 0.5s ease;
 }
 
 .toggler:checked~.mask {
@@ -68,6 +69,7 @@
   justify-content: center;
   border: 5px solid rgb(79, 130, 240);
   border-radius: 10px;
+  transition: all 0.5s ease;
 }
 
 .data {

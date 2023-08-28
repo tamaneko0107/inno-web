@@ -78,9 +78,10 @@
                             </div>
                             <div class="face_img_frame content_box">
                                 {% for face in faces%}
-                                <label>
+                                <label style="display: inline-flex; flex-direction: column;">
                                     <input type="radio" name="face">
                                     <img title="face_img" class="face_img" src="../static/test_img/{{ face }}.jpg" tabindex="0">
+                                    <span style="text-align: center; color: rgb(0, 255, 229);">{{ face }}</span>
                                 </label>
                                 {% endfor %}
                             </div>
@@ -118,21 +119,8 @@
                                 </label>
                             </div>
                             <input type="button" class="button-frame button-anime" onclick="uploadKeypoint(4)" value="upload">
-                            <!-- <div class="data">
-                                <input type="submit" value="上傳">
-                            </div> -->
                         </div>
                     </li>
-                    <!-- <li id="step-5">
-                        <div class="data">
-                            <p>generate content</p>
-                            <textarea class="textbox" placeholder="No data has been generated yet"></textarea>
-                            <div class="send">
-                                <input type="submit" value="confirm" class="button-frame button-anime">
-                                <input type="button" value="reset" class="button-frame button-anime">
-                            </div>
-                        </div>
-                    </li> -->
                 </ul>
             </form>
             <div class="prev-next">
@@ -147,27 +135,31 @@
             </div>
         </div>
     </div>
-</div>
-
-<div class="create-course" style="display:none">
-    <div class="button-frame role-open role-selection">
-        <a href="/teacher"><button title="create_course" class="button-frame button-anime return-button"><i class="fa-solid fa-arrow-left-long"></i></button></a>
-        <span>創建課程</span>
-        <div class="input-frame">
-            <div>
-                <div class="input-box">
-                    <input id="course-name" type="text" class="button-frame login-frame" name="course-name" title="course_name">
-                    <label>course name</label>
+    <div class="create-course" style="transform: translateY(1000px);">
+        <div class="button-frame role-open role-selection">
+            <!-- <a href="/teacher"> -->
+                <button title="create_course" class="button-frame button-anime return-button">
+                    <i class="fa-solid fa-arrow-left-long"></i>
+                </button>
+            <!-- </a> -->
+            <span>創建課程</span>
+            <div class="input-frame">
+                <div>
+                    <div class="input-box">
+                        <input id="course-name" type="text" class="button-frame login-frame" name="course-name" title="course_name">
+                        <label>course name</label>
+                    </div>
                 </div>
-            </div>
-            <div>
-                <div class="register-button-frame">
-                    <button type="button" class="button-frame button-anime" id="create_course_btn" onclick="create_subject()">create</button>     
+                <div>
+                    <div class="register-button-frame">
+                        <button type="button" class="button-frame button-anime" id="create_course_btn" onclick="create_subject()">create</button>     
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 
 <script>
     $(function(){

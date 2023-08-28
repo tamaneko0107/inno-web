@@ -19,11 +19,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (get('.non-data')[0]) {
         get('.non-data')[0].addEventListener('click', function () {
-            get('.data-frame')[0].style.display = 'none';
-            get('.create-course')[0].style.display = '';
+            get('.data-input-frame')[0].style.transform = 'translateY(-1000px)';
+            get('.create-course')[0].style.transform = '';
+            get('.toggler:checked')[0].click();
         });
     }
 
+    if (get('button[title=create_course]')[0]) {
+        get('button[title=create_course]')[0].addEventListener('click', function () {
+            get('.create-course')[0].style.transform = 'translateY(1000px)';
+            get('.data-input-frame')[0].style.transform = '';
+        });
+    }
+
+    
     var dropArea = get('.drop-area');
     if (dropArea) {
         dropArea.forEach((dropArea) => {
