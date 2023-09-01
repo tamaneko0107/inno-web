@@ -17,19 +17,12 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    if (get('.non-data')[0]) {
-        get('.non-data')[0].addEventListener('click', function () {
-            get('.data-input-frame')[0].style.transform = 'translateY(-1000px)';
-            get('.create-course')[0].style.transform = '';
-            get('.toggler:checked')[0].click();
-        });
-    }
+    // if (get('.non-data')[0]) {
+    //     get('.non-data')[0].addEventListener('click', create_course);
+    // }
 
     if (get('button[title=create_course]')[0]) {
-        get('button[title=create_course]')[0].addEventListener('click', function () {
-            get('.create-course')[0].style.transform = 'translateY(1000px)';
-            get('.data-input-frame')[0].style.transform = '';
-        });
+        get('button[title=create_course]')[0].addEventListener('click', data_input_frame);
     }
 
     
@@ -43,7 +36,86 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    get('#file_input')[0].addEventListener('change', function (event) {
+        var fileURL = URL.createObjectURL(event.target.files[0]);
+        get('#view_file')[0].href = fileURL;
+    });
+
+    get('#url_input')[0].addEventListener('input', function (event) {
+        get('#view_file')[0].href = event.target.value;
+    });
+
 });
+
+function code_copy() {
+    let code = get('#code')[0].textContent;
+    navigator.clipboard.writeText(code);
+}
+
+function data_input_frame() {
+    if (get('input[name="file_name"]')[0].value) {
+        get('.create-course')[0].style.transform = 'translateY(2000px)';
+        get('.data-input-frame')[0].style.transform = '';
+    }
+}
+
+function create_course() {
+    get('.data-input-frame')[0].style.transform = 'translateY(-1000px)';
+    get('.create-course')[0].style.transform = '';
+    get('.toggler:checked')[0].click();
+}
+
+function create_code(course_name) {
+    let new_code = new_node('div', {
+        className: 'create-course-mask',
+        innerHTML: `
+        <div class="button-frame role-open role-selection code-create">
+            <button title="close-code" class="button-frame button-anime return-button">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <span>課程代碼</span>
+            <div class="input-frame">
+                <div>
+                    <div class="input-box">
+                        <label id="code"></label>
+                    </div>
+                </div>
+                <div>
+                    <div class="register-button-frame">
+                        <button type="button" class="button-frame button-anime" id="code-copy" onclick="code_copy()">
+                            <div>COPY</div>
+                            <i class="fa-solid fa-check"></i>
+                        </button>     
+                    </div>
+                </div>
+            </div>
+        </div>`
+    });
+
+    new_code.querySelector('#code').textContent = Math.random().toString(36).slice(2, 10).toUpperCase();
+    $('#jstree-root').jstree(true).create_node('#', { "id": new_code.querySelector('#code').textContent, "type": "folder", "text": course_name  });
+    get('.create-course')[0].appendChild(new_code);
+    [get('button[title="close-code"]')[0], get('.create-course-mask')[0], get('.toggler')[0]].forEach((element) => {
+        element.addEventListener('click', function (e) {
+            if (e.target === e.currentTarget) {
+                // console.log(e.target);
+                new_code.remove();
+                if (get('.toggler:not(:checked)')[0])
+                    get('.toggler:not(:checked)')[0].click();
+            }
+        }, { once: true });
+    });
+    function remove_code_frame (e) {
+        if (e.target === e.currentTarget) {
+            // console.log(e.target);
+            new_code.remove();
+            if (get('.toggler:not(:checked)')[0])
+                get('.toggler:not(:checked)')[0].click();
+        }
+        else
+            e.addEventListener('click', remove_code_frame, { once: true });
+    }
+}
 
 function preventDefaults(e) {
     e.stopPropagation();
@@ -180,7 +252,8 @@ function login() {
 function create_subject() {
     const course_name = get('#course-name')[0].value;
     // get author from cookie
-    const author = document.cookie.split('; ').find(row => row.startsWith('username')).split('=')[1];
-    let body = JSON.stringify({ "subject_name": course_name, "author": author });
-    fetchAPI('/api/create/subject', 'POST', body, undefined, 'application/json');
+    // const author = document.cookie.split('; ').find(row => row.startsWith('username')).split('=')[1];
+    // let body = JSON.stringify({ "subject_name": course_name, "author": author });
+    // fetchAPI('/api/create/subject', 'POST', body, undefined, 'application/json');
+    create_code(course_name);
 }

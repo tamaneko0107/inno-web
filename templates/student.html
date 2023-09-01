@@ -11,12 +11,109 @@
         <script src="{{ url_for('static', filename='js/' + file) }}" ></script>
     {% endfor %}
     <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-
 </head>
+<style>
+    .tag{
+        position: absolute;
+        bottom: calc(100% + 7px);
+        border-radius: 3px;
+        background: #098789;
+        padding: 5px;
+        font-size: 15px;
+        color: #fff;
+        transform: translateX(-50%);
+      
+        left: 0%;
+      }
+      .tag::after{
+        content:'';
+        display: block;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-top: 7px solid #098789;
+        position: absolute;
+        left: 50%;
+        top: 100%;
+        transform: translateX(-50%);
+      }
+      .bar span{
+        display: inline-block;
+        height: 120%;
+        background: #098789;
+      
+        width: 0%;
+      }
+      .tool-chart{
+        position: relative;
+        width: calc(100% - 90px);
+        left: 70px;
+      }
+      .tool-chart::after{
+        content: attr(data-title);
+        position: absolute;
+        top: 0;
+        right: calc(100% + 15px);
+      }
+      .bar{
+        margin-top: 60px;
+        margin-bottom: 5px;
+        height: 15px;
+        background: #eee;
+        border-radius: 10px;
+        overflow: hidden;
+      }
+      /* .plants{
+        background-image: ;
+      } */
+</style>
 <body>
     <div class="fish" id="fish"></div>
     <div class="fish" id="fish2"></div>
-    {% block content %}{% endblock %} 
-    
+    <div class="plants"></div>
+    <header>
+
+        {% block content %}{% endblock %} 
+        <div class="title">
+            <p class="AIGC-title">AIGC Teacher Master</p>
+        </div>
+        <input type="checkbox" class="toggler">
+        <div class="hamburger"><div></div></div>
+        <div class="menu"></div>
+        <div class="bg"></div>
+        <div class="mask"></div>
+    </header>
+
+
+
+    <div class="data_frame">
+        <div class="data-input-frame">
+            <div class="tool-chart" data-progress="0" data-target-progress="80">
+                <div class="tag"></div>
+                <div class="bar">
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
+<script>
+    $(".tool-chart").each(function(){
+        var $chart = $(this);
+        var targetProgress = parseInt($chart.attr("data-target-progress"));
+        var currentProgress = 0;
+  
+        function updateProgress() {
+            if (currentProgress <= targetProgress) {
+                $chart.attr("data-progress", currentProgress); // Update data-progress attribute
+                $chart.children(".tag").text(currentProgress + "%");
+                $chart.children(".tag").css("left", currentProgress + "%"); // Move the tag along with progress
+                $chart.children(".bar").children("span").css("width", currentProgress + "%");
+                currentProgress++;
+                setTimeout(updateProgress, 15); // Adjust the interval as needed
+            }
+        }
+  
+        updateProgress();
+    });
+</script>
 </html>
