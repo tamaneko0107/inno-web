@@ -3,7 +3,7 @@ import os
 import configs as CONFIG
 from flask_restx import Api, Resource, fields, reqparse
 from werkzeug.datastructures import FileStorage
-
+# from model import Course
 
 app = Flask(__name__, static_folder='static')
 # api = Api(app, version='1.0', title='Face Recognition API', prefix='/api', doc='/docs')
@@ -33,8 +33,22 @@ def teacher():
     JS_FILES = os.listdir(os.path.join(STATIC_FLODER, 'js'))
     # html_files = os.listdir(os.path.join('templates'))
     IMAGE_FILES = [i[:-4] for i in os.listdir(os.path.join(STATIC_FLODER, 'test_img')) ]
+
+    JS_FILES.remove('output_jstree.js')
     
     return render_template('teacher.html', css_files=CSS_FILES, js_files=JS_FILES,faces=IMAGE_FILES)
+
+@app.route('/teacher/output')
+def teacher_output():
+    STATIC_FLODER = os.path.join(app.root_path, 'static')
+    CSS_FILES = os.listdir(os.path.join(STATIC_FLODER, 'css'))
+    JS_FILES = os.listdir(os.path.join(STATIC_FLODER, 'js'))
+    # html_files = os.listdir(os.path.join('templates'))
+    IMAGE_FILES = [i[:-4] for i in os.listdir(os.path.join(STATIC_FLODER, 'test_img')) ]
+
+    JS_FILES.remove('teacher.js')
+    
+    return render_template('output.html', css_files=CSS_FILES, js_files=JS_FILES,faces=IMAGE_FILES)
 
 @app.route('/student')
 def student():
@@ -46,6 +60,16 @@ def student():
 @app.route('/register')
 def index_register():
     return render_template('register.html')
+
+# @app.route('/video')
+# def video():
+#     token = request.args.get('token')
+#     query = Course.query.filter_by(token=token)
+#     if query.first():
+#         return jsonify(
+#             url=query.first().video_path
+#         )
+
 
 upload_parser = reqparse.RequestParser()
 # upload_parser.add_argument("subject_name", type=str, required=True, default="string")

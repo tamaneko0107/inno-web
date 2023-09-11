@@ -400,6 +400,7 @@
 .code-create label {
   z-index: 1;
   user-select: all;
+  overflow: auto;
 }
 
 #code-copy {

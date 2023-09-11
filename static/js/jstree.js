@@ -1,10 +1,10 @@
-$(function () { 
+$(function () {
     $('#jstree-root').jstree({ 'core' : {
         'data' : [
-        //    { "id" : "ajson1", "parent" : "#", "text" : "Simple root node" },
-        //    { "id" : "ajson2", "parent" : "#", "text" : "Root node 2" },
-        //    { "id" : "ajson3", "parent" : "ajson2", "text" : "Child 1asdasdadsadadasdasdasdasdadasdasdasdsadsadafasfasfafagadsadadadasdas" },
-        //    { "id" : "ajson4", "parent" : "ajson2", "text" : "Child 2" },
+           { "id" : "ajson1", "parent" : "#", "text" : "Simple root node", "type": "folder" },
+           { "id" : "ajson2", "parent" : "#", "text" : "Root node 2", "type": "folder" },
+           { "id" : "ajson3", "parent" : "ajson2", "text" : "Child 1", "type": "file" },
+           { "id" : "ajson4", "parent" : "ajson2", "text" : "Child 2", "type": "file" }
         ],
         'check_callback': function (operation, node, node_parent, node_position, more) {
             if (operation === 'create_node') {
@@ -14,7 +14,7 @@ $(function () {
                     depth += 1;
                     current_node = this.get_node(current_node.parent);
                 }
-                if (depth > 3) {
+                if ((depth > 3) || (node.type == "folder" && depth > 2)) {
                     alert("You can't create more than 3 levels");
                     return false;
                 }
@@ -41,15 +41,16 @@ $(function () {
     $('#jstree-root').on('changed.jstree', function (e, data) {
         node = data.instance.get_node(data.selected[0])
         if (node.type == "file") {
+            // $('#dataForm')[0].reset();
             file_name = [node.text];
             while (node.parent != "#") {
                 node = data.instance.get_node(node.parent);
                 file_name.push(node.text);
             }
-            console.log(file_name);
             file_name = [...file_name.slice(0, -1).reverse(), file_name[file_name.length - 1]];
+            console.log(file_name);
             ['subject_name', 'file_name', 'chapter_name'].forEach((element) => {
-                if (file_name) get(`input[name=${element}`)[0].value = file_name.pop();
+                get(`input[name=${element}`)[0].value = file_name.length?file_name.pop():"";
             });
             
             data_input_frame();
@@ -67,6 +68,38 @@ function create(type){
             ref.edit(currNode);
             $('.jstree-rename-input').attr('max-height', 6);
         }
+        $('#jstree-root').on('rename_node.jstree', function (e, data) {
+            if(data.node.id === currNode) {
+                currNode = ref.get_node(currNode)
+                file_name = [currNode.text];
+                while (currNode.parent != "#") {
+                    currNode = ref.get_node(currNode.parent);
+                    file_name.push(currNode.text);
+                }
+                console.log(file_name);
+                // file_name = file_name.reverse();
+                // if (file_name.length == 2) {
+                //     data = JSON.stringify({'author': 'admin', 'subject_name': file_name[0]});
+                    
+                //     fetchAPI('http://c8763yee.mooo.com:8763/api/create/subject', 'POST', data, undefined, 'application/json').then((dummy) => {
+                //         console.log('success!');
+                //     }).catch((error) => {
+                //         console.log(error);
+                //     });
+
+                // } else {
+                //     data = JSON.stringify({'author': 'admin', 'subject_name': file_name[0], 'chapter_name': file_name[1]});
+                //     fetchAPI('http://c8763yee.mooo.com:8763/api/create/chapter', 'POST', data, undefined, 'application/json').then((dummy) => {
+                //         console.log('success!');
+                //     }).catch((error) => {
+                //         console.log(error);
+                //     });
+                // }
+
+
+                $('#jstree-root').off('rename_node.jstree');
+            }
+        });
     }
 }
     

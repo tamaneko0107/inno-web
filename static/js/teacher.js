@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', function () {
     // $('#dates li').eq(0).find('a').trigger('click');
     if (get('.mask')[0]) {
@@ -45,6 +46,11 @@ document.addEventListener('DOMContentLoaded', function () {
         get('#view_file')[0].href = event.target.value;
     });
 
+    get('#face_input')[0].addEventListener('change', function (event) {
+        var fileURL = URL.createObjectURL(event.target.files[0]);
+        get('#view_face')[0].href = fileURL;
+    });
+
 });
 
 function code_copy() {
@@ -65,7 +71,7 @@ function create_course() {
     get('.toggler:checked')[0].click();
 }
 
-function create_code(course_name) {
+function create_code(course_name, id) {
     let new_code = new_node('div', {
         className: 'create-course-mask',
         innerHTML: `
@@ -92,7 +98,7 @@ function create_code(course_name) {
         </div>`
     });
 
-    new_code.querySelector('#code').textContent = Math.random().toString(36).slice(2, 10).toUpperCase();
+    new_code.querySelector('#code').textContent = id;
     $('#jstree-root').jstree(true).create_node('#', { "id": new_code.querySelector('#code').textContent, "type": "folder", "text": course_name  });
     get('.create-course')[0].appendChild(new_code);
     [get('button[title="close-code"]')[0], get('.create-course-mask')[0], get('.toggler')[0]].forEach((element) => {
@@ -100,22 +106,26 @@ function create_code(course_name) {
             if (e.target === e.currentTarget) {
                 // console.log(e.target);
                 new_code.remove();
+                element.removeEventListener('click', arguments.callee, false);
                 if (get('.toggler:not(:checked)')[0])
                     get('.toggler:not(:checked)')[0].click();
             }
-        }, { once: true });
+        });
     });
-    function remove_code_frame (e) {
-        if (e.target === e.currentTarget) {
-            // console.log(e.target);
-            new_code.remove();
-            if (get('.toggler:not(:checked)')[0])
-                get('.toggler:not(:checked)')[0].click();
-        }
-        else
-            e.addEventListener('click', remove_code_frame, { once: true });
-    }
 }
+// function hashFunc(acc, pw){
+//     let token = acc + pw;
+//     let hashPromise = window.crypto.subtle.digest('SHA-256', new TextEncoder().encode(token)).then(
+//         (hashBuffer) => {
+//             return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+//         }
+//     ).then((hash) => {
+//         //
+//         });
+//     console.log(hashPromise);
+// }
+
+
 
 function preventDefaults(e) {
     e.stopPropagation();
@@ -161,6 +171,12 @@ function toggleElements(sel_id, limit = []) {
 function face_select(sel_id, limit = []) {
     toggleElements(sel_id, limit);
     get('.face_img')[0].click();
+    if (get(sel_id)[0].value != 0) {
+        get('#view_face')[0].style.display = 'none';
+    }
+    else {
+        get('#view_face')[0].style.display = '';
+    }
 }
 
 function createStep(num) {
@@ -168,6 +184,7 @@ function createStep(num) {
     let step_data = get('#issues')[0];
 
     // 尋找有沒有相應 step 元素
+    // create new step element if provided step element is not exist
     let old_step = step.get('li')[num - 1];
     // console.log(old_step);
     if (!old_step) {
@@ -205,16 +222,27 @@ function createStep(num) {
     });
     const newStepLink = $('#dates li').last().find('a');
 
-    // 触发点击新增或取代的步骤链接
+    // add trigger for click add or replace step link
     newStepLink.trigger('click');
 }
 
 
 async function uploadKeypoint(step_num) {
     createStep(step_num + 1);
-    data = new FormData(get("form")[0]);
+    var data = new FormData(get("form")[0]);
 
-    fetchAPI('/api/upload/keypoint', 'POST', new FormData(get('#dataForm')[0]), 'keypoint_content')
+    if (get('#setting2')[0].value != 0) {
+        data.delete('uploadface');
+        fetch(get('.face_img_frame input[type=radio]:checked+.face_img')[0].src)
+            .then(response => response.blob())
+            .then(blob => {
+                // 將Blob物件加入至FormData中
+                data.append('uploadface', blob, 'image.png');
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    fetchAPI('http://c8763yee.mooo.com:8763/api/upload/keypoint', 'POST', data, 'keypoint_content')
         .then((result) => { get('.data > textarea')[0].value = result })
         .catch((error) => { console.log(error) });
 }
@@ -253,7 +281,9 @@ function create_subject() {
     const course_name = get('#course-name')[0].value;
     // get author from cookie
     // const author = document.cookie.split('; ').find(row => row.startsWith('username')).split('=')[1];
-    // let body = JSON.stringify({ "subject_name": course_name, "author": author });
-    // fetchAPI('/api/create/subject', 'POST', body, undefined, 'application/json');
-    create_code(course_name);
+    let body = JSON.stringify({ "subject_name": course_name, "author": 'admin' });
+    fetchAPI('http://c8763yee.mooo.com:8763/api/create/subject', 'POST', body, 'ID', 'application/json').then((ID) => {
+        console.log(ID);
+        create_code(course_name, ID);
+    });
 }

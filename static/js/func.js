@@ -43,6 +43,9 @@ async function fetchAPI(url, method = 'POST', data = {}, key = undefined, conten
     let headers = new Headers();
     if (content_type) {
         headers.append('Content-Type', content_type);
+        headers.append('Access-Control-Allow-Origin', '*');
+        headers.append('Access-Control-Allow-Methods', 'POST');
+        headers.append('Access-Control-Allow-Headers', 'Content-Type');
     }
     return await fetch(url, {
         method: method,

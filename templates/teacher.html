@@ -64,7 +64,7 @@
             <form method="POST" name="uploaddata" id="dataForm">
                 <!-- <area value="subject_naem"> -->
                 <input name="chapter_name" value="" style="display:none">
-                <input name="subject_name" value="" style="display:none">
+                <input name="subject_name" value="subject_name" style="display:none">
                 <input name="file_name" value="" style="display:none">
                 <input name="author" value="author" style="display:none">
                 <ul id="issues">
@@ -103,9 +103,10 @@
                                     <i class="fa-solid fa-image fa"></i>
                                     <span class="file-name">Upload face</span>
                                     <span>( jpg , jpeg , png )</span>
-                                    <input accept=".jpg,.jpeg,.png" type="file" id="face_input" class="file_input" name="uploadface" style="display: none;">
+                                    <input accept=".jpg,.jpeg,.png" type="file" id="face_input" name="uploadface" class="file_input" style="display: none;">
                                 </label>
                             </div>
+                            <a href="#" id="view_face" class="button-frame button-anime" target="_blank" style="margin-top: 15px;">face check</a>
                             <div class="face_img_frame content_box">
                                 {% for face in faces%}
                                 <label style="display: inline-flex; flex-direction: column;">

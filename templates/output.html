@@ -1,0 +1,32 @@
+{% extends 'teacher.html' %}
+{% block content %}
+<header>
+    <div class="title">
+        <p class="AIGC-title">AIGC Teacher Master</p>
+    </div>
+    <input type="checkbox" class="toggler">
+    <div class="hamburger"><div></div></div>
+    <div class="menu">
+        <!-- <div class="non-data">
+            <p>+</p>
+            <p>New Course</p>
+        </div> -->
+        <div class="jstree-data">
+            <div id="jstree-root" class="list"></div>
+        </div>
+    </div>
+    <div class="bg"></div>
+    <div class="mask"></div>
+</header>
+
+<input name="chapter_name" value="" style="display:none">
+<input name="subject_name" value="" style="display:none">
+<input name="file_name" value="" style="display:none">
+<input name="author" value="author" style="display:none">
+
+<div class="data-frame">
+    <div class="data-input-frame"></div>
+    <div class="data-input-frame"></div>
+</div>
+
+{% endblock %}

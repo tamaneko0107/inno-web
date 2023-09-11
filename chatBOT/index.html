@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css')}}">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<script src="{{ url_for('static', filename='main.js' )}}"></script> 
+	<title>ChatBOT</title>
+</head>
+
+<body>
+	
+	<div class="container">
+		<div class="title-container">
+			<img src="https://freelogopng.com/images/all_img/1681038242chatgpt-logo-png.png">
+			<p>ChatBOT</p>
+		</div>
+
+		<div class="msg-container">
+	
+		</div>
+
+		<div class="chat-container">
+			<form class="chat-form">
+				<input type="text" class="chat-box" name="user_msg">
+				<button class="chat-submit">submit</button>
+			</form>
+		</div>
+	</div>
+
+</body>
+</html>
