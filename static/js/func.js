@@ -58,7 +58,7 @@ async function fetchAPI(url, method = 'POST', data = {}, key = undefined, conten
         }
         return response.json();
     }).then((data) => {
-        if (data['status'] != "ok") throw new Error(data['content']['message']);
+        if (data['status'] === "error") throw new Error(data['content']['message']);
         if (key) {
             if (Array.isArray(key)) {
                 let res = {};

@@ -58,17 +58,21 @@ function code_copy() {
     navigator.clipboard.writeText(code);
 }
 
+// 切換至資料輸入畫面
 function data_input_frame() {
     if (get('input[name="file_name"]')[0].value) {
         get('.create-course')[0].style.transform = 'translateY(2000px)';
         get('.data-input-frame')[0].style.transform = '';
+        get('.course')[0].style.display = '';
     }
 }
 
+// 切換至創建課程畫面
 function create_course() {
-    get('.data-input-frame')[0].style.transform = 'translateY(-1000px)';
+    get('.data-input-frame')[0].style.transform = 'translateY(-2000px)';
     get('.create-course')[0].style.transform = '';
     get('.toggler:checked')[0].click();
+    get('.course')[0].style.display = 'none';
 }
 
 function create_code(course_name, id) {
@@ -97,9 +101,15 @@ function create_code(course_name, id) {
             </div>
         </div>`
     });
-
     new_code.querySelector('#code').textContent = id;
-    $('#jstree-root').jstree(true).create_node('#', { "id": new_code.querySelector('#code').textContent, "type": "folder", "text": course_name  });
+
+    // 檢查課程是否已存在
+    if ($('#jstree-root').jstree(true).get_node(id)) {
+        alert('課程已存在');
+    }
+    else {
+        $('#jstree-root').jstree(true).create_node('#', { "id": new_code.querySelector('#code').textContent, "type": "folder", "text": course_name  });
+    }
     get('.create-course')[0].appendChild(new_code);
     [get('button[title="close-code"]')[0], get('.create-course-mask')[0], get('.toggler')[0]].forEach((element) => {
         element.addEventListener('click', function (e) {
@@ -230,7 +240,9 @@ function createStep(num) {
 async function uploadKeypoint(step_num) {
     createStep(step_num + 1);
     var data = new FormData(get("form")[0]);
-
+    
+    data.append('keypoint_type', get('input[type=radio]:checked + div span')[0].innerHTML.toLowerCase());
+    // 新增step-2的圖片至formdata
     if (get('#setting2')[0].value != 0) {
         data.delete('uploadface');
         fetch(get('.face_img_frame input[type=radio]:checked+.face_img')[0].src)
@@ -242,8 +254,15 @@ async function uploadKeypoint(step_num) {
             .catch(error => console.error('Error:', error));
     }
 
-    fetchAPI('http://c8763yee.mooo.com:8763/api/upload/keypoint', 'POST', data, 'keypoint_content')
-        .then((result) => { get('.data > textarea')[0].value = result })
+    fetchAPI('http://c8763yee.mooo.com:7414/api/upload/keypoint', 'POST', data, 'keypoint_content')
+        .then((result) => {
+            get('.data > textarea')[0].value = result
+            get('input[value="reset"]')[0].addEventListener('click', function () {
+                if (window.confirm("You sure you want to reset?")){
+                    get('.data > textarea')[0].value = result;
+                }
+            });
+        })
         .catch((error) => { console.log(error) });
 }
 
@@ -282,8 +301,15 @@ function create_subject() {
     // get author from cookie
     // const author = document.cookie.split('; ').find(row => row.startsWith('username')).split('=')[1];
     let body = JSON.stringify({ "subject_name": course_name, "author": 'admin' });
-    fetchAPI('http://c8763yee.mooo.com:8763/api/create/subject', 'POST', body, 'ID', 'application/json').then((ID) => {
+    fetchAPI('http://c8763yee.mooo.com:7414/api/create/subject', 'POST', body, 'ID', 'application/json').then((ID) => {
         console.log(ID);
         create_code(course_name, ID);
     });
 }
+
+function playAudio() {
+    var audioPlayer = get('#audioPlayer')[0];
+    var voices = get('#voices')[0];
+    audioPlayer.src = `/static/sample/sample_${voices.value}.mp3`;
+    audioPlayer.play();
+  }

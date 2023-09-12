@@ -1,9 +1,25 @@
 from flask import Flask, request, redirect, url_for, render_template, send_from_directory, make_response, session
 import os
 import configs as CONFIG
+import json
 from flask_restx import Api, Resource, fields, reqparse
+import requests
 from werkzeug.datastructures import FileStorage
+
+
 # from model import Course
+
+# def generate_TTS_sample(overwrite=False):
+#     sample_dir = "static/sample"
+#     if os.path.exists(sample_dir) and overwrite is False:
+#         return
+#     os.makedirs(sample_dir, exist_ok=True)
+#     for language in CONFIG.TTS_CONFIG_LIST:
+#         locale = CONFIG.LANG_JSON["locale"][language.split("-")[0]]
+#         voice = f'{locale}-{language.split("-")[-1]}'
+#         asyncio.run(
+#             text2voice("Hello World", voice, sample_dir, f"sample_{language}.mp3")
+#         )
 
 app = Flask(__name__, static_folder='static')
 # api = Api(app, version='1.0', title='Face Recognition API', prefix='/api', doc='/docs')
@@ -35,8 +51,11 @@ def teacher():
     IMAGE_FILES = [i[:-4] for i in os.listdir(os.path.join(STATIC_FLODER, 'test_img')) ]
 
     JS_FILES.remove('output_jstree.js')
-    
-    return render_template('teacher.html', css_files=CSS_FILES, js_files=JS_FILES,faces=IMAGE_FILES)
+    voices = requests.get(f'http://c8763yee.mooo.com:7414/api/list/voice').json()['voices']
+    # voices = ['us']
+
+
+    return render_template('teacher.html', css_files=CSS_FILES, js_files=JS_FILES,faces=IMAGE_FILES, voices=voices, mp3=voices)
 
 @app.route('/teacher/output')
 def teacher_output():
@@ -70,6 +89,9 @@ def index_register():
 #             url=query.first().video_path
 #         )
 
+@app.route('/chatbot')
+def chatbot():
+    return render_template('chatbot.html')
 
 upload_parser = reqparse.RequestParser()
 # upload_parser.add_argument("subject_name", type=str, required=True, default="string")
