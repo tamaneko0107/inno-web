@@ -1,2 +1,46 @@
 {% extends 'index.html' %}
 
+{% block preload %}
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+{% endblock %}
+
+{% block content %}
+<div class="chat_bot_container">
+    <div class="chat_bot_title-container">
+        <img src="https://freelogopng.com/images/all_img/1681038242chatgpt-logo-png.png">
+        <p>ChatBOT</p>
+    </div>
+
+    <div class="msg-container">
+        <div class="user-msg-box">
+            <div class="user-msg">
+                <span class='msg-span'>
+                    ` + message + `
+                </span>
+            </div>
+        </div>
+        
+        <div class="bot-message">
+            <div class="bot-logo">
+                <img src="https://freelogopng.com/images/all_img/1681038242chatgpt-logo-png.png">
+            </div>
+            <div class="bot-msg">
+                <span class='msg-span'>
+                    `+ response +`
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="chat-container">
+        <form class="chat-form">
+            <div class="chat-frame">
+                <input type="text" class="chat-box" name="user_msg" autocomplete="off">
+                <button  class="chat-submit">
+                    <i class="fa-regular fa-paper-plane"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %} 

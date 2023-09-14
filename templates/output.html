@@ -15,6 +15,16 @@
             <div id="jstree-root" class="list"></div>
         </div>
     </div>
+    <div id="teacher-output-button">
+        <a href="/teacher">
+            <button class="cta">
+                <span class="hover-underline-animation">generate</span>
+                <svg viewBox="0 0 46 16" height="10" width="30" xmlns="http://www.w3.org/2000/svg" id="arrow-horizontal">
+                    <path transform="translate(30)" d="M8,0,6.545,1.455l5.506,5.506H-30V9.039H12.052L6.545,14.545,8,16l8-8Z" data-name="Path 10" id="Path_10"></path>
+                </svg>
+            </button>
+        </a>
+    </div>
     <div class="bg"></div>
     <div class="mask"></div>
 </header>
@@ -24,9 +34,40 @@
 <input name="file_name" value="" style="display:none">
 <input name="author" value="author" style="display:none">
 
-<div class="data-frame">
-    <div class="data-input-frame"></div>
-    <div class="data-input-frame"></div>
+
+<div class="course">
+    <p class="course-title" style="text-align: center;">Choose file</p>
+</div>
+<div class="course-material-frame">
+    <div class="course-view-data">
+        <div class="course-material" id="course-frame-left">
+            <video width="100%" height="100%" controls autoplay>
+                <source src="../static/video/25358c5ebeed4f6396aef79e3519b38f.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <div class="material-download-frame">
+            <a href="../static/video/25358c5ebeed4f6396aef79e3519b38f.mp4" download="coursemp4">
+                <button type="button" class="download-button">
+                    <span class="download-button-text">Download</span>
+                    <span class="download-button-icon"><svg class="download-svg" data-name="Layer 2" id="bdd05811-e15d-428c-bb53-8661459f9307" viewBox="0 0 35 35" xmlns="http://www.w3.org/2000/svg"><path d="M17.5,22.131a1.249,1.249,0,0,1-1.25-1.25V2.187a1.25,1.25,0,0,1,2.5,0V20.881A1.25,1.25,0,0,1,17.5,22.131Z"></path><path d="M17.5,22.693a3.189,3.189,0,0,1-2.262-.936L8.487,15.006a1.249,1.249,0,0,1,1.767-1.767l6.751,6.751a.7.7,0,0,0,.99,0l6.751-6.751a1.25,1.25,0,0,1,1.768,1.767l-6.752,6.751A3.191,3.191,0,0,1,17.5,22.693Z"></path><path d="M31.436,34.063H3.564A3.318,3.318,0,0,1,.25,30.749V22.011a1.25,1.25,0,0,1,2.5,0v8.738a.815.815,0,0,0,.814.814H31.436a.815.815,0,0,0,.814-.814V22.011a1.25,1.25,0,1,1,2.5,0v8.738A3.318,3.318,0,0,1,31.436,34.063Z"></path></svg></span>
+                </button>
+            </a>
+        </div>
+    </div>
+    <div class="course-view-data">
+        <div class="course-material" id="course-frame-right">
+            <iframe src="../static/pdf/outline.pdf" width="100%" height="100%" scrolling="yes"></iframe>
+        </div>
+        <div class="material-download-frame">
+            <a href="../static/pdf/outline.pdf" download="coursepdf">
+                <button type="button" class="download-button">
+                    <span class="download-button-text">Download</span>
+                    <span class="download-button-icon"><svg class="download-svg" data-name="Layer 2" id="bdd05811-e15d-428c-bb53-8661459f9307" viewBox="0 0 35 35" xmlns="http://www.w3.org/2000/svg"><path d="M17.5,22.131a1.249,1.249,0,0,1-1.25-1.25V2.187a1.25,1.25,0,0,1,2.5,0V20.881A1.25,1.25,0,0,1,17.5,22.131Z"></path><path d="M17.5,22.693a3.189,3.189,0,0,1-2.262-.936L8.487,15.006a1.249,1.249,0,0,1,1.767-1.767l6.751,6.751a.7.7,0,0,0,.99,0l6.751-6.751a1.25,1.25,0,0,1,1.768,1.767l-6.752,6.751A3.191,3.191,0,0,1,17.5,22.693Z"></path><path d="M31.436,34.063H3.564A3.318,3.318,0,0,1,.25,30.749V22.011a1.25,1.25,0,0,1,2.5,0v8.738a.815.815,0,0,0,.814.814H31.436a.815.815,0,0,0,.814-.814V22.011a1.25,1.25,0,1,1,2.5,0v8.738A3.318,3.318,0,0,1,31.436,34.063Z"></path></svg></span>
+                </button>
+            </a>
+        </div>
+    </div>
 </div>
 
 {% endblock %}

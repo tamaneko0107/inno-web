@@ -26,13 +26,13 @@
                     <i class="fa-regular fa-folder"></i>
                 </button>
                 <button class="button-frame button-anime f-button" value="create_file" onclick="create('file');">
-                    <i class="fa-solid fa-plus"></i>
+                    <i class="fa-solid fa-file-circle-plus"></i>
                 </button>
                 <!-- <button class="button-frame button-anime f-button" value="rename" onclick="rename();">
                     <i class="fa-solid fa-pen"></i>
                 </button> -->
                 <button class="button-frame button-anime f-button" value="del" onclick="del();">
-                    <i class="fa-solid fa-xmark"></i>
+                    <i class="fa-solid fa-file-circle-minus"></i>
                 </button>
                 <button class="button-frame button-anime f-button" value="up" onclick="moveup();">
                     <i class="fa-solid fa-angle-up"></i>
@@ -47,13 +47,23 @@
             </button>
         </div>
     </div>
+    <div id="teacher-output-button">
+        <a href="/teacher/output">
+            <button class="cta">
+                <span class="hover-underline-animation"> Output </span>
+                <svg viewBox="0 0 46 16" height="10" width="30" xmlns="http://www.w3.org/2000/svg" id="arrow-horizontal">
+                    <path transform="translate(30)" d="M8,0,6.545,1.455l5.506,5.506H-30V9.039H12.052L6.545,14.545,8,16l8-8Z" data-name="Path 10" id="Path_10"></path>
+                </svg>
+            </button>
+        </a>
+    </div>
     <div class="bg"></div>
     <div class="mask"></div>
 </header>
 
 
 <div class="course">
-    <p class="course-title"></p>
+    <p class="course-title" style="text-align: center;">Choose file</p>
 </div>
 <div class="data-frame">
     <div class="data-input-frame" style="transform: translateY(-2000px);">
@@ -131,9 +141,7 @@
                                 {% endfor %}
                             </select>
                             <audio id="audioPlayer" src=""></audio>
-                            <div class="voice-play-frame">
-                                
-                            </div>
+                            <div class="voice-play-frame"></div>
                         </div>
                     </li>
                     <li id="step-4">
@@ -154,7 +162,7 @@
                                     </div>
                                 </label>
                             </div>
-                            <input type="button" class="button-frame button-anime" onclick="uploadKeypoint(4)" value="upload">
+                            <input type="button" class="button-frame button-anime" onclick="uploadKeypoint(4)" value="upload" style="margin-top: 15px;">
                         </div>
                     </li>
                 </ul>
@@ -182,7 +190,7 @@
             <div class="input-frame">
                 <div>
                     <div class="input-box">
-                        <input id="course-name" type="text" class="button-frame login-frame" name="course-name" title="course_name">
+                        <input id="course-name" type="text" class="button-frame login-frame" name="course-name" title="course_name" autocomplete="off">
                         <label>course name</label>
                     </div>
                 </div>

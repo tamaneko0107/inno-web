@@ -203,6 +203,8 @@ function createStep(num) {
             innerHTML: `<a href="#step-${num}">Step.${num}</a>`
         });
         step.appendChild(new_step);
+    } else {
+        new_step = old_step;
     }
 
     let old_step_data = step_data.get('#issues > li')[num - 1];
@@ -215,7 +217,7 @@ function createStep(num) {
                 <p>generate content</p>
                 <textarea class="textbox" placeholder="尚未生成任何資料"></textarea>
                 <div class="send">
-                    <input type="submit" value="confirm" class="button-frame button-anime">
+                    <input type="button" value="confirm" class="button-frame button-anime">
                     <input type="button" value="reset" class="button-frame button-anime">
                 </div>
             </div>
@@ -224,6 +226,7 @@ function createStep(num) {
         step_data.appendChild(new_step_data);
     } else {
         old_step_data.get('.data > textarea')[0].value = '';
+        new_step_data = old_step_data;
     }
 
 
@@ -234,11 +237,11 @@ function createStep(num) {
 
     // add trigger for click add or replace step link
     newStepLink.trigger('click');
+
+    return [new_step_data, new_step];
 }
 
-
-async function uploadKeypoint(step_num) {
-    createStep(step_num + 1);
+function newForm() {
     var data = new FormData(get("form")[0]);
     
     data.append('keypoint_type', get('input[type=radio]:checked + div span')[0].innerHTML.toLowerCase());
@@ -254,16 +257,59 @@ async function uploadKeypoint(step_num) {
             .catch(error => console.error('Error:', error));
     }
 
+    return data;
+}
+
+async function uploadKeypoint(step_num) {
+    var new_node = createStep(step_num + 1);
+    var data = newForm();
+    
+    var loading_overlay = create_loading();
+    var statusbar = create_status(loading_overlay);
     fetchAPI('http://c8763yee.mooo.com:7414/api/upload/keypoint', 'POST', data, 'keypoint_content')
-        .then((result) => {
-            get('.data > textarea')[0].value = result
-            get('input[value="reset"]')[0].addEventListener('click', function () {
-                if (window.confirm("You sure you want to reset?")){
-                    get('.data > textarea')[0].value = result;
-                }
-            });
-        })
-        .catch((error) => { console.log(error) });
+    .then((result) => {
+        if (!result) { throw new Error('upload failed'); }
+        get('.data > textarea')[0].value = result
+        get('input[value="reset"]')[0].addEventListener('click', function () {
+            if (window.confirm("You sure you want to reset?")){
+                get('.data > textarea')[0].value = result;
+            }
+        });
+    })
+    .catch((error) => { 
+        console.log(error);
+        new_node.forEach((element) => {
+            element.remove();
+        });
+        get('#dates li').pop().childNodes[0].click();
+    })
+    .finally(() => {
+        statusbar.style.width = '100%';
+        statusbar.innerHTML = '100%';
+        statusbar.setAttribute('aria-valuenow', 100);
+        setTimeout(() => {
+            loading_overlay.remove();
+        }, 1000);
+    });
+}
+
+function uploadVideo() {
+    var data = newForm();
+    
+    var loading_overlay = create_loading();
+    var statusbar = create_status(loading_overlay);
+
+    if (!confirm('Are you sure to generate video?')) return;
+    fetchAPI('http://c8763yee.mooo.com:7414/api/upload/video', 'POST', data, 'task_id')
+    .then((res) => {
+        getStatus(res, statusbar);
+    }).catch((error) => {
+        alert(`Error: ${error.message}`);
+    }).finally(() => {
+        setTimeout(() => {
+            loading_overlay.remove();
+        }, 1000);
+    });
 }
 
 function register() {
@@ -312,4 +358,4 @@ function playAudio() {
     var voices = get('#voices')[0];
     audioPlayer.src = `/static/sample/sample_${voices.value}.mp3`;
     audioPlayer.play();
-  }
+}

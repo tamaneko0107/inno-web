@@ -41,12 +41,12 @@
 }
 
 .course-title {
-  width: 178.4px;
+  width: 245.3px;
   overflow: hidden;
   /*はみ出た要素を非表示に*/
   white-space: nowrap;
   /*1行に*/
-  animation: typing 1s steps(8);
+  /* animation: typing 1s steps(8); */
   font-weight: bolder;
   text-align: center;
 }
@@ -488,3 +488,22 @@
   z-index: 9999;
 }
 
+.progress {
+  width: 500px;
+  z-index: 999;
+  transform: translateY(35px);
+  height: 2rem;
+  font-size: 1.4rem;
+  font-weight: bold;
+  border-radius: 0.85rem;
+}
+
+#teacher-output-button {
+  display: flex;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 11;  
+  height: 80px;
+  align-items: center;
+}

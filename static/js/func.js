@@ -82,3 +82,48 @@ async function fetchAPI(url, method = 'POST', data = {}, key = undefined, conten
         alert(`ERROR RECEIVED: \n${error}`);
     });
 }
+
+function getStatus(task_id, statusbar) { // TODO use setInterval to check status every 1s
+    let timer = setInterval(() => {
+        fetch(`/api/status?task_id=${task_id}`, {
+            method: "get",
+        }).then((response) => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        }).then(
+            (res) => {
+                var content = res['content'];
+                if (res['status'] == 'FAILURE') {
+                    throw new Error(`Task failed!${res['error']}`);
+                }
+                if (res['status'] == 'PENDING') {
+                    console.log('generating, please wait...');
+                }
+                else if (content['status'] == 'PROGRESS') {
+                    console.log('generating, please wait...');
+                    let current = res['info']['current'];
+                    let total = res['info']['total'];
+                    let percent = (current / total) * 100;
+                    statusbar.style.width = percent + '%';
+                    statusbar.innerHTML = percent + '%';
+                    statusbar.setAttribute('aria-valuenow', percent);
+                }
+                else if (content['status'] == 'SUCCESS') {
+                    statusbar.style.width = '100%';
+                    statusbar.innerHTML = '100%';
+                    statusbar.setAttribute('aria-valuenow', 100);
+                    // get(".chat_window")[0].style.width = "300px";
+                    // let videoPath = res['result'];
+                    // get("#video")[0].src = videoPath;
+                    alert("generate success!");
+                    clearInterval(timer);
+                }
+            }
+        ).catch((error) => {
+            alert(`Error: ${error.message}`);
+            clearInterval(timer);
+        });
+    }, 1000);
+};

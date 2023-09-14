@@ -33,10 +33,6 @@ input {
   cursor: text;
 }
 
-input:focus {
-  lectureNote: none;
-}
-
 button {
   cursor: pointer;
 }
@@ -52,3 +48,11 @@ header {
   -webkit-text-fill-color: green;
   transition: background-color 5000s ease-in-out 0s;
 } */
+
+video {
+  border-radius: 5px;
+}
+
+*, ::after, ::before {
+  box-sizing: unset;
+}

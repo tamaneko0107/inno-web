@@ -6,8 +6,7 @@ $(document).ready(function() {
         
         const message = $('.chat-box').val();
         $('.chat-box').val('');
-        $('.msg-container').append(`<div class="user-logo"><i class="fa-solid fa-user"></i></div>`);
-        $('.msg-container').append(`<div class="user-msg-box"><div class="user-msg">` + message + `</div></div>`);
+        $('.msg-container').append(`<div class="user-msg-box"><div class="user-msg"><span class='msg-span'>` + message + `</span></div></div>`);
         scrollToBottom();
         $.ajax({
             method: 'POST',
@@ -16,14 +15,14 @@ $(document).ready(function() {
                 message: message
             },
             success: function(response) {
-                $('.msg-container').append(`<div class="bot-logo"><img src="https://freelogopng.com/images/all_img/1681038242chatgpt-logo-png.png"></i></div>`);
-                $('.msg-container').append(`<div class="bot-msg-box"><div class="bot-msg">` + response + `</div></div>`);
-                scrollToBottom(); // 在成功回應後呼叫自動滾動函數
+                $('.msg-container').append(`<div class="bot-message"><div class="bot-logo"><img src="https://freelogopng.com/images/all_img/1681038242chatgpt-logo-png.png"></div><div class="bot-msg"><span class='msg-span'>`+ response +`</span></div></div>`);
+
+                scrollToBottom();
             }
         });
     });
     
     function scrollToBottom() {
-        msgContainer.scrollTop(msgContainer[0].scrollHeight); // 將滾動位置設置到底部
+        msgContainer.scrollTop(msgContainer[0].scrollHeight);
     }
 });

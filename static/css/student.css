@@ -1,4 +1,4 @@
-#chat_bot_button {
+#chat-bot-button {
   display: flex;
   position: absolute;
   top: 0;
@@ -7,40 +7,68 @@
   height: 80px;
   align-items: center;
 }
+
+.course-view-data {
+  flex-basis: calc(50%);
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 25px;
+}
+
 .course-material-frame {
-  width: 100%;
-  height: 90%;
+  /* width: 100%; */
+  height: 80%;
   display: flex;
   position: relative;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.course-material {
+  width: 100%;
+  height: 100%;
+  /* display: flex;
+  justify-content: center; */
+  border: 5px solid rgb(79, 130, 240);
+  border-radius: 10px;
+  overflow: hidden;
+  /* transition: all 0.5s ease; */
+}
+
+/* #course-frame-left {
+  margin: 0 10px 0 20px;
+} */
+
+#course-frame-right {
+  margin: 0 20px 0 10px;
+}
+
+.download-buttons-frame {
+  height: 10%;
+  width: 100%;
+  display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.course-material {
-  /* margin: -5% 0 0 0; */
-  width: 80%;
-  height: 80%;
+.material-download-frame {
+  /* width: 45%;
   display: flex;
-  justify-content: center;
-  border: 5px solid rgb(79, 130, 240);
-  border-radius: 10px;
-  transition: all 0.5s ease;
-}
-#course-frame-left {
-  margin: -5% 10px 0 20px;
-}
-#course-frame-right {
-  margin: -5% 20px 0 10px;
+  justify-content: center; */
+  margin-top: 30px;
 }
 
-/* button */
 .cta {
   border: none;
   background: none;
+  display: flex;
+  align-items: center;
 }
 
 .cta span {
-  padding-bottom: 7px;
+  padding-bottom: 0;
   letter-spacing: 4px;
   font-size: 20px;
   padding-right: 15px;
@@ -52,14 +80,20 @@
 .cta svg {
   transform: translateX(-8px);
   transition: all 0.3s ease;
+  fill: #ffffff;
+  filter: drop-shadow(3px 5px 2px rgb(0 0 0 / 1));
 }
 
 .cta:hover svg {
   transform: translateX(0);
+  fill: #ffffff;
+  filter: drop-shadow(3px 5px 2px rgb(0 0 0 / 1));
 }
 
 .cta:active svg {
   transform: scale(0.9);
+  fill: #ffffff;
+  filter: drop-shadow(3px 5px 2px rgb(0 0 0 / 1));
 }
 
 .hover-underline-animation {
@@ -84,4 +118,71 @@
 .cta:hover .hover-underline-animation:after {
   transform: scaleX(1);
   transform-origin: bottom left;
+}
+
+
+/* download button css */
+.download-button {
+  --main-focus: #2d8cf0;
+  --font-color: #dedede;
+  --bg-color-sub: #2123af;
+  --bg-color: #73aae0;
+  --main-color: #000;
+  position: relative;
+  width: 150px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border: 2px solid var(--main-color);
+  box-shadow: 4px 4px var(--main-color);
+  background-color: var(--bg-color);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.download-button, .download-button-icon, .download-button-text {
+  transition: all 0.65s;
+}
+
+.download-button .download-button-text {
+  transform: translateX(30px);
+  color: var(--font-color);
+  font-weight: 600;
+}
+
+.download-button .download-button-icon {
+  position: absolute;
+  transform: translateX(125px);
+  height: 100%;
+  width: 35px;
+  background-color: var(--bg-color-sub);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.download-button .download-svg {
+  width: 20px;
+  fill: #ffffff;
+}
+
+.download-button:hover {
+  background: var(--bg-color);
+}
+
+.download-button:hover .download-button-text {
+  color: transparent;
+}
+
+.download-button:hover .download-button-icon {
+  width: 110%;
+  transform: translateX(-7px);
+}
+.download-button:hover .download-svg {
+  transform: translateX(-7px);
+}
+.download-button:active {
+  transform: translate(3px, 3px);
+  box-shadow: 0px 0px var(--main-color);
 }

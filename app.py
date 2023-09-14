@@ -33,6 +33,9 @@ def index():
     STATIC_FLODER = os.path.join(app.root_path, 'static')
     CSS_FILES = os.listdir(os.path.join(STATIC_FLODER, 'css'))
     JS_FILES = os.listdir(os.path.join(STATIC_FLODER, 'js'))
+
+    # CSS_FILES.remove('student.css')
+
     return render_template('index.html', css_files=CSS_FILES, js_files=JS_FILES)
 
 @app.route('/register')
@@ -51,8 +54,8 @@ def teacher():
     IMAGE_FILES = [i[:-4] for i in os.listdir(os.path.join(STATIC_FLODER, 'test_img')) ]
 
     JS_FILES.remove('output_jstree.js')
-    voices = requests.get(f'http://c8763yee.mooo.com:7414/api/list/voice').json()['voices']
-    # voices = ['us']
+    # voices = requests.get(f'http://c8763yee.mooo.com:7414/api/list/voice').json()['voices']
+    voices = ['us']
 
 
     return render_template('teacher.html', css_files=CSS_FILES, js_files=JS_FILES,faces=IMAGE_FILES, voices=voices, mp3=voices)
@@ -65,7 +68,8 @@ def teacher_output():
     # html_files = os.listdir(os.path.join('templates'))
     IMAGE_FILES = [i[:-4] for i in os.listdir(os.path.join(STATIC_FLODER, 'test_img')) ]
 
-    JS_FILES.remove('teacher.js')
+    # JS_FILES.remove('teacher.js')
+    JS_FILES.remove('jstree.js')
     
     return render_template('output.html', css_files=CSS_FILES, js_files=JS_FILES,faces=IMAGE_FILES)
 
@@ -78,6 +82,7 @@ def student():
 
 @app.route('/register')
 def index_register():
+    
     return render_template('register.html')
 
 # @app.route('/video')
@@ -91,7 +96,10 @@ def index_register():
 
 @app.route('/chatbot')
 def chatbot():
-    return render_template('chatbot.html')
+    STATIC_FLODER = os.path.join(app.root_path, 'static')
+    CSS_FILES = os.listdir(os.path.join(STATIC_FLODER, 'css'))
+    JS_FILES = os.listdir(os.path.join(STATIC_FLODER, 'js'))
+    return render_template('chatbot.html', css_files=CSS_FILES, js_files=JS_FILES)
 
 upload_parser = reqparse.RequestParser()
 # upload_parser.add_argument("subject_name", type=str, required=True, default="string")
@@ -131,4 +139,4 @@ upload_parser.add_argument('face_box', type=str, required=True)
 #         content=dict(message='amogus', keypoint_content='sus')
 #     )
 if __name__ == '__main__':
-    app.run()
+    app.run(port=80)

@@ -27,7 +27,9 @@
   display: block;
   transform-origin: -50% center;
   border-radius: var(--box-border-radius);
+  box-sizing: border-box;
 }
+
 .container:after {
   content: "";
   width: 100%;

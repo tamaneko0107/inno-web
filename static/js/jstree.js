@@ -52,24 +52,28 @@ $(function () {
                 node = data.instance.get_node(node.parent);
                 file_name.push(node.text);
             }
-
+            
             // 修改課程名稱
             file_name = [...file_name.slice(0, -1).reverse(), file_name[file_name.length - 1]];
             console.log(file_name);
             ['subject_name', 'file_name', 'chapter_name'].forEach((element) => {
                 get(`input[name=${element}`)[0].value = file_name.length?file_name.pop():"";
             });
+
             let course_title = get('.course > p')[0];
+            course_title.style.animation = '';
             if (get('input[name="chapter_name"]')[0].value){
                 var title = get('input[name="subject_name"]')[0].value + ' - ' + get('input[name="chapter_name"]')[0].value;
             }
             else {
                 var title = get('input[name="subject_name"]')[0].value;
             }
-            course_title.innerHTML = title
             course_title.style.width = title.length * 22.3 + "px";
-            course_title.style.animation = `typing 1s steps(${title.length})`;
-
+            setTimeout(() => {
+                course_title.style.animation = `typing 1s steps(${title.length})`;
+                course_title.innerHTML = title
+            }, 100);
+            
             data_input_frame();
         }
     });
@@ -82,7 +86,8 @@ $(function () {
         var create = true;
         for (var i = 0; i < siblings.length; i++) {
             var siblingName = ref.get_text(siblings[i]);
-            if (siblingName == newName && siblings[i] != data.node.id) {
+            var siblingType = ref.get_node(siblings[i]).type;
+            if (siblingName == newName && siblings[i] != data.node.id && data.node.type == siblingType) {
                 alert('duplicate node added: ' + newName);
                 // 刪除節點
                 ref.delete_node(data.node);
