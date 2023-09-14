@@ -37,6 +37,24 @@ function create_loading(nonstatus = false) {
                 //     // 加載完成的操作
                 //   }, 500); // 延遲0.5秒
         });
+        let iframe = get('iframe')[0];
+        let video = get('video')[0];
+        if ( iframe && video) {
+            console.log(iframe);
+            let loadedCount = 0;
+            iframe.onload = () => {
+                loadedCount++;
+                if (loadedCount === 1) {
+                    loading_overlay.remove();
+                }
+            }
+            video.onloadeddata = (event) => {
+                loadedCount++;
+                if (loadedCount === 2) {
+                    loading_overlay.remove();
+                }
+            };
+        }
     } else {
         console.log('loading');
         return loading_overlay;
