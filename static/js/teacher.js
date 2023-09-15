@@ -13,7 +13,10 @@ document.addEventListener('DOMContentLoaded', function () {
         fileInputs.forEach((fileInput, index) => {
             fileInput.addEventListener('change', function (event) {
                 const file_name = event.target.files[0].name;
-                fileNames[index].textContent = file_name;
+                (file_name.length > 20) ?
+                    fileNames[index].textContent = file_name.slice(0, 20) + '...'
+                    :
+                    fileNames[index].textContent = file_name;
             });
         });
     }
@@ -27,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     
-    var dropArea = get('.drop-area');
+    let dropArea = get('.drop-area');
     if (dropArea) {
         dropArea.forEach((dropArea) => {
             ['dragenter', 'dragover'].forEach(eventName => {
@@ -37,20 +40,33 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    get('#file_input')[0].addEventListener('change', function (event) {
-        var fileURL = URL.createObjectURL(event.target.files[0]);
-        get('#view_file')[0].href = fileURL;
-    });
-
-    get('#url_input')[0].addEventListener('input', function (event) {
-        get('#view_file')[0].href = event.target.value;
-    });
-
-    get('#face_input')[0].addEventListener('change', function (event) {
-        var fileURL = URL.createObjectURL(event.target.files[0]);
-        get('#view_face')[0].href = fileURL;
-    });
-
+    // 預覽檔案
+    let fileInput = get('.file_input')[0];
+    if (fileInput) {
+        fileInput.addEventListener('change', function (event) {
+            let fileURL = URL.createObjectURL(event.target.files[0]);
+            let view = get('#view_file')[0]
+            view.href = fileURL;
+            view.target = '_blank';
+        });
+    }
+    let urlInput = get('#urlInput')[0];
+    if (urlInput) {
+        urlInput.addEventListener('input', function (event) {
+            let view = get('#view_file')[0]
+            view.href = event.target.value;
+            view.target = '_blank';
+        });
+    }
+    let faceInput = get('#face_input')[0];
+    if (faceInput) {
+        get('#face_input')[0].addEventListener('change', function (event) {
+            let fileURL = URL.createObjectURL(event.target.files[0]);
+            let view = get('#view_face')[0]
+            view.href = fileURL;
+            view.target = '_blank';
+        });
+    }
 });
 
 function code_copy() {
@@ -122,6 +138,16 @@ function create_code(course_name, id) {
             }
         });
     });
+
+    // 阻擋a標籤預設行為
+    let a_element = get('a[href="#"]');
+    if (a_element) {
+        a_element.forEach((element) => {
+            element.addEventListener('click', function (e) {
+                e.preventDefault();
+            });
+        });
+    }
 }
 // function hashFunc(acc, pw){
 //     let token = acc + pw;
@@ -344,6 +370,10 @@ function login() {
 
 function create_subject() {
     const course_name = get('#course-name')[0].value;
+    if (!course_name) {
+        alert('課程名稱不可為空');
+        return;
+    }
     // get author from cookie
     // const author = document.cookie.split('; ').find(row => row.startsWith('username')).split('=')[1];
     let body = JSON.stringify({ "subject_name": course_name, "author": 'admin' });

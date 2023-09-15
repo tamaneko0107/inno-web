@@ -218,7 +218,12 @@
 
 .middle {
   width: 100%;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.middle label {
+  flex-basis: 50%;
 }
 
 .middle input[type=radio] {
@@ -240,7 +245,7 @@
 }
 
 .middle .radio-box {
-  width: 450px;
+  width: 100%;
   height: 250px;
   background-color: #fff;
   transition: all 250ms ease;

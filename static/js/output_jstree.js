@@ -4,13 +4,15 @@ $(function () {
            { "id" : "ajson1", "parent" : "#", "text" : "Simple root node", "type": "folder" },
            { "id" : "ajson2", "parent" : "#", "text" : "Root node 2", "type": "folder" },
            { "id" : "ajson3", "parent" : "ajson2", "text" : "test", "type": "file" },
-           { "id" : "ajson4", "parent" : "ajson2", "text" : "Child 2", "type": "file" }
+           { "id" : "ajson4", "parent" : "ajson2", "text" : "Child 2", "type": "file" },
+           { "id" : "ajson5", "parent" : "ajson2", "text" : "Child 3", "type": "folder" },
+           { "id" : "ajson6", "parent" : "ajson5", "text" : "Child 10", "type": "file" }
         ],
         'themes' : {
             'dots' : false,
         }
     },
-    "plugins" : [ "search", "types" ],
+    "plugins" : [ "search", "state", "types" ],
     "types": {
         "dafault": {
             "icon": "fa-regular fa-folder-open"
@@ -29,29 +31,31 @@ $(function () {
 
     // 切換至檔案管理頁面
     $('#jstree-root').on('changed.jstree', function (e, data) {
+        console.log(data);
         node = data.instance.get_node(data.selected[0])
         if (node.type == "file") {
             // $('#dataForm')[0].reset();
-            file_name = [node.text];
+            let file_name = [node.text];
             while (node.parent != "#") {
                 node = data.instance.get_node(node.parent);
                 file_name.push(node.text);
             }
+            console.log(file_name);
             
             // 修改課程名稱
-            file_name = [...file_name.slice(0, -1).reverse(), file_name[file_name.length - 1]];
-            console.log(file_name);
-            ['subject_name', 'file_name', 'chapter_name'].forEach((element) => {
-                get(`input[name=${element}`)[0].value = file_name.length?file_name.pop():"";
-            });
+            // file_name = [...file_name.slice(0, -1).reverse(), file_name[file_name.length - 1]];
+            // ['subject_name', 'file_name', 'chapter_name'].forEach((element) => {
+            //     get(`input[name=${element}`)[0].value = file_name.length?file_name.pop():"";
+            // });
             
+            // 標題動畫
             let course_title = get('.course > p')[0];
             course_title.style.animation = '';
-            if (get('input[name="chapter_name"]')[0].value){
-                var title = get('input[name="subject_name"]')[0].value + ' - ' + get('input[name="chapter_name"]')[0].value;
+            if (file_name.length > 2){
+                var title = file_name[2] + ' - ' + file_name[1];
             }
             else {
-                var title = get('input[name="subject_name"]')[0].value;
+                var title = file_name[1];
             }
             course_title.style.width = title.length * 22.3 + "px";
             setTimeout(() => {

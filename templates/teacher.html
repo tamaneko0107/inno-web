@@ -10,9 +10,9 @@
 
 {% block content %}
 <header>
-    <div class="title">
+    <!-- <div class="title">
         <p class="AIGC-title">AIGC Teacher Master</p>
-    </div>
+    </div> -->
     <input type="checkbox" class="toggler">
     <div class="hamburger"><div></div></div>
     <div class="menu">
@@ -102,7 +102,7 @@
                                     <input type="text" id="url_input" placeholder="Enter URL">
                                 </div>
                             </div>
-                            <a href="#" id="view_file" class="button-frame button-anime" target="_blank" style="margin-top: 15px;">file check</a>
+                            <a href="#" id="view_file" class="button-frame button-anime" target="" style="margin-top: 15px;">file check</a>
                         </div>
                     </li>
                     <li id="step-2">
@@ -120,7 +120,7 @@
                                     <input accept=".jpg,.jpeg,.png" type="file" id="face_input" name="uploadface" class="file_input" style="display: none;">
                                 </label>
                             </div>
-                            <a href="#" id="view_face" class="button-frame button-anime" target="_blank" style="margin-top: 15px;">face check</a>
+                            <a href="#" id="view_face" class="button-frame button-anime" target="" style="margin-top: 15px;">face check</a>
                             <div class="face_img_frame content_box">
                                 {% for face in faces%}
                                 <label style="display: inline-flex; flex-direction: column;">

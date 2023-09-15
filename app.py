@@ -34,7 +34,10 @@ def index():
     CSS_FILES = os.listdir(os.path.join(STATIC_FLODER, 'css'))
     JS_FILES = os.listdir(os.path.join(STATIC_FLODER, 'js'))
 
-    # CSS_FILES.remove('student.css')
+    JS_FILES.remove('jstree.js')
+    JS_FILES.remove('output_jstree.js')
+    JS_FILES.remove('teacher_StepLine.js')
+    # JS_FILES.remove('teacher.js')
 
     return render_template('index.html', css_files=CSS_FILES, js_files=JS_FILES)
 
@@ -43,6 +46,12 @@ def register():
     STATIC_FLODER = os.path.join(app.root_path, 'static')
     CSS_FILES = os.listdir(os.path.join(STATIC_FLODER, 'css'))
     JS_FILES = os.listdir(os.path.join(STATIC_FLODER, 'js'))
+
+    JS_FILES.remove('jstree.js')
+    JS_FILES.remove('output_jstree.js')
+    JS_FILES.remove('teacher_StepLine.js')
+    JS_FILES.remove('role_open.js')
+
     return render_template('register.html', css_files=CSS_FILES, js_files=JS_FILES)
 
 @app.route('/teacher')
@@ -54,6 +63,8 @@ def teacher():
     IMAGE_FILES = [i[:-4] for i in os.listdir(os.path.join(STATIC_FLODER, 'test_img')) ]
 
     JS_FILES.remove('output_jstree.js')
+    JS_FILES.remove('role_open.js')
+
     # voices = requests.get(f'http://c8763yee.mooo.com:7414/api/list/voice').json()['voices']
     voices = ['us']
 
@@ -70,6 +81,7 @@ def teacher_output():
 
     # JS_FILES.remove('teacher.js')
     JS_FILES.remove('jstree.js')
+    JS_FILES.remove('role_open.js')
     
     return render_template('output.html', css_files=CSS_FILES, js_files=JS_FILES,faces=IMAGE_FILES)
 
@@ -78,6 +90,10 @@ def student():
     STATIC_FLODER = os.path.join(app.root_path, 'static')
     CSS_FILES = os.listdir(os.path.join(STATIC_FLODER, 'css'))
     JS_FILES = os.listdir(os.path.join(STATIC_FLODER, 'js'))
+    
+    JS_FILES.remove('jstree.js')
+    JS_FILES.remove('role_open.js')
+
     return render_template('student.html', css_files=CSS_FILES, js_files=JS_FILES)
 
 @app.route('/register')
@@ -99,6 +115,11 @@ def chatbot():
     STATIC_FLODER = os.path.join(app.root_path, 'static')
     CSS_FILES = os.listdir(os.path.join(STATIC_FLODER, 'css'))
     JS_FILES = os.listdir(os.path.join(STATIC_FLODER, 'js'))
+
+    JS_FILES.remove('jstree.js')
+    JS_FILES.remove('output_jstree.js')
+    JS_FILES.remove('role_open.js')
+
     return render_template('chatbot.html', css_files=CSS_FILES, js_files=JS_FILES)
 
 upload_parser = reqparse.RequestParser()

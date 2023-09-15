@@ -9,7 +9,7 @@
 }
 
 .course-view-data {
-  flex-basis: calc(50%);
+  flex-basis: 50%;
   display: flex;
   height: 100%;
   flex-direction: column;

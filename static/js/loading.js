@@ -40,7 +40,6 @@ function create_loading(nonstatus = false) {
         let iframe = get('iframe')[0];
         let video = get('video')[0];
         if ( iframe && video) {
-            console.log(iframe);
             let loadedCount = 0;
             iframe.onload = () => {
                 loadedCount++;
@@ -48,7 +47,7 @@ function create_loading(nonstatus = false) {
                     loading_overlay.remove();
                 }
             }
-            video.onloadeddata = (event) => {
+            video.onloadeddata = () => {
                 loadedCount++;
                 if (loadedCount === 2) {
                     loading_overlay.remove();

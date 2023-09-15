@@ -9,9 +9,12 @@
 
         [0, 1].forEach((IO_code) => {
             const [this_IO, target_IO] = [IO_code_convert[IO_code], IO_code_convert[+!IO_code]];
-            get(`#${this_IO}-button`)[0].addEventListener('click', () => {
-                get(`#${target_IO}-button`)[0].style.display = 'none';
-            });
+            let this_button = get(`#${this_IO}-button`)[0];
+            if (this_button) {
+                this_button.addEventListener('click', () => {
+                    get(`#${target_IO}-button`)[0].style.display = 'none';
+                });
+            }
         });
 
     });
